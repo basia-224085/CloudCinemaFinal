@@ -29,6 +29,10 @@ namespace CloudCinemaFinal.Controllers
             // if(signed in) --> return view();
             // else --> "You must be signed in to browse movie list."
         }
+        public IActionResult Trailer()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

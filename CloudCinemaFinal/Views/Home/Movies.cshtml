@@ -1,7 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
     ViewData["Title"] = "Movies Page";
 }
 <div class="text-center">
@@ -44,7 +41,37 @@
                 is given the inverse task of planting an idea into the mind of a C.E.O.<br />
             </p>
             <div class="float-right">
-                <input type="button" value="Watch Trailer" class="btn-outline-dark" />
+                <input type="button" value="Watch Trailer" class="btn-outline-dark"
+                       onclick="window.location.href='@Url.Action("Trailer", "Home")' ;"/>
+
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md">
+                <input type="button" value="12:00" class="btn-outline-dark disabled" />
+            </div>
+            <div class="col-md">
+                <input type="button" value="14:30" class="btn-outline-dark" />
+            </div>
+            <div class="col-md">
+                <input type="button" value="18:00" class="btn-outline-dark" />
+            </div>
+            <div class="col-md">
+                <input type="button" value="21:30" class="btn-outline-dark" />
+            </div>
+        </div>
+        </li>
+        <li class="list-group-item">
+            <img class="float-left" src="/photos/inception.jpg" style="height: 300px;" />
+            <p>
+                <h1>Inception</h1>
+                A thief who steals corporate secrets through the use of dream-sharing technology
+                is given the inverse task of planting an idea into the mind of a C.E.O.<br />
+            </p>
+            <div class="float-right">
+                <input type="button" value="Watch Trailer" class="btn-outline-dark"
+                       onclick="window.location.href='@Url.Action("Trailer", "Home")' ;" />
             </div>
             <br /><br />
             <div class="row">
@@ -70,35 +97,12 @@
                 is given the inverse task of planting an idea into the mind of a C.E.O.<br />
             </p>
             <div class="float-right">
-                <input type="button" value="Watch Trailer" class="btn-outline-dark" />
+                <input type="button" value="Watch Trailer" class="btn-outline-dark"
+                       onclick="window.location.href='@Url.Action("Trailer", "Home")' ;" />
             </div>
-            <br /><br />
-            <div class="row">
-                <div class="col-md">
-                    <input type="button" value="12:00" class="btn-outline-dark disabled" />
-                </div>
-                <div class="col-md">
-                    <input type="button" value="14:30" class="btn-outline-dark" />
-                </div>
-                <div class="col-md">
-                    <input type="button" value="18:00" class="btn-outline-dark" />
-                </div>
-                <div class="col-md">
-                    <input type="button" value="21:30" class="btn-outline-dark" />
-                </div>
-            </div>
-        </li>
-        <li class="list-group-item">
-            <img class="float-left" src="/photos/inception.jpg" style="height: 300px;" />
-            <p>
-                <h1>Inception</h1>
-                A thief who steals corporate secrets through the use of dream-sharing technology
-                is given the inverse task of planting an idea into the mind of a C.E.O.<br />
-            </p>
-            <div class="float-right">
-                <input type="button" value="Watch Trailer" class="btn-outline-dark" />
-            </div>
-            <br /><br />
+
+            <br />
+            <br />
             <div class="row">
                 <div class="col-md">
                     <input type="button" value="12:00" class="btn-outline-dark disabled" />

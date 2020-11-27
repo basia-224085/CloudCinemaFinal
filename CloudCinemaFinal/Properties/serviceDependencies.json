@@ -3,6 +3,13 @@
     "mssql1": {
       "type": "mssql",
       "connectionId": "DefaultConnection"
+    },
+    "secrets1": {
+      "type": "secrets"
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "Server=tcp:cloudcinema.database.windows.net,1433;InitialCatalog=CloudCinemaDB;PersistSecurityInfo=False;UserID=cloudcinema;Password=Ccs12345;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;ConnectionTimeout=30;"
     }
   }
 }

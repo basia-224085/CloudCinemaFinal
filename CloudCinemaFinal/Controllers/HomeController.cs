@@ -40,6 +40,14 @@ namespace CloudCinemaFinal.Controllers
         {
             return View();
         }
+        public IActionResult Reservation()
+        {
+            return View();
+        }
+        public IActionResult Logout()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

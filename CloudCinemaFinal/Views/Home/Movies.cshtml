@@ -42,17 +42,18 @@
             </p>
             <div class="float-right">
                 <input type="button" value="Watch Trailer" class="btn-outline-dark"
-                       onclick="window.location.href='@Url.Action("Trailer", "Home")' ;"/>
+                       onclick="window.location.href='@Url.Action("Trailer", "Home")';"/>
 
         </div>
         <br />
         <br />
         <div class="row">
             <div class="col-md">
-                <input type="button" value="12:00" class="btn-outline-dark disabled" />
+                <input type="button" value="12:00" class="btn-outline-dark" 
+                       onclick="window.location.href='@Url.Action("Tickets", "Home")';"/>
             </div>
             <div class="col-md">
-                <input type="button" value="14:30" class="btn-outline-dark" />
+                <input type="button" value="14:30" class="btn-outline-dark" disabled/>
             </div>
             <div class="col-md">
                 <input type="button" value="18:00" class="btn-outline-dark" />

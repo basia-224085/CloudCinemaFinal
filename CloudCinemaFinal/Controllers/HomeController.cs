@@ -22,7 +22,6 @@ namespace CloudCinemaFinal.Controllers
         {
             return View();
         }
-
         public IActionResult Movies()
         {
             return View();
@@ -30,6 +29,14 @@ namespace CloudCinemaFinal.Controllers
             // else --> "You must be signed in to browse movie list."
         }
         public IActionResult Trailer()
+        {
+            return View();
+        }
+        public IActionResult Tickets()
+        {
+            return View();
+        }
+        public IActionResult Seats()
         {
             return View();
         }

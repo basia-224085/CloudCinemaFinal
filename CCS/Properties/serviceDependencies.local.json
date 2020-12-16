@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql.local",
+      "connectionId": "DefaultConnection"
+    },
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "mssql2": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/cloudcinema/databases/CloudCinemaDB",
+      "type": "mssql.azure",
+      "connectionId": "Server=tcp:cloudcinema.database.windows.net,1433;InitialCatalog=CloudCinemaDB;PersistSecurityInfo=False;UserID=cloudcinema;Password=Ccs12345;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;ConnectionTimeout=30;",
+      "secretStore": "LocalSecretsFile"
+    }
+  }
+}

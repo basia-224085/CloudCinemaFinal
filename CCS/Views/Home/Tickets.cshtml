@@ -5,39 +5,54 @@
     int childTickets = 2;
     int seniorTickets = 1;
 }
+@functions {
+    
+}
+<html>
+<head>
+    <script type="text/javascript">
+        function decrease()
+        {
+            console.info(@ViewBag.tickets);
+        }
+    </script>
+</head>
+<body>
+    <h1 display-4>Choose tickets:</h1>
 
-<h1 display-4>Choose tickets:</h1>
+    <div class="col-md">
+        <input type="button" value="-" class="btn-danger" style="width:30px" onclick="decrease()" />
+        <a style="border:3px solid black"> &ensp;@ViewBag.tickets&ensp;</a>
+        <input type="button" value="+" class="btn-success" style="width:30px" />
+        <a style="font-size:medium">Normal&emsp;&emsp;&emsp;&emsp;&emsp;PLN 20.00</a>
+    </div>
+    <br />
+    <div class="col-md">
+        <input type="button" value="-" class="btn-danger" style="width:30px" }" />
+        <a style="border:3px solid black"> &ensp;@studentTickets&ensp;</a>
+        <input type="button" value="+" class="btn-success" style="width:30px" />
+        <a style="font-size:medium">Student&emsp;&ensp;&ensp;&emsp;&emsp;&emsp;PLN 10.00</a>
+    </div>
+    <br />
+    <div class="col-md">
+        <input type="button" value="-" class="btn-danger" style="width:30px" }" />
+        <a style="border:3px solid black"> &ensp;@childTickets&ensp;</a>
+        <input type="button" value="+" class="btn-success" style="width:30px" />
+        <a style="font-size:medium">Child&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;PLN 15.00</a>
+    </div>
+    <br />
+    <div class="col-md">
+        <input type="button" value="-" class="btn-danger" style="width:30px" }" />
+        <a style="border:3px solid black"> &ensp;@seniorTickets&ensp;</a>
+        <input type="button" value="+" class="btn-success" style="width:30px" />
+        <a style="font-size:medium">Senior&emsp;&ensp;&emsp;&emsp;&emsp;&emsp;PLN 18.00</a>
+    </div>
+    <div class="float-right">
+        <input type="button" value="Next" class="btn-dark" style="font-size:large; background-size:contain"
+               onclick="window.location.href='@Url.Action("Seats", "Home")';" />
+    </div>
 
-<div class="col-md">
-    <input type="button" value="-" class="btn-danger" style="width:30px" }" />
-    <a style="border:3px solid black"> &ensp;@normalTickets&ensp;</a>
-    <input type="button" value="+" class="btn-success" style="width:30px" />
-    <a style="font-size:medium">Normal&emsp;&emsp;&emsp;&emsp;&emsp;PLN 20.00</a>
-</div>
-<br />
-<div class="col-md">
-    <input type="button" value="-" class="btn-danger" style="width:30px" }" />
-    <a style="border:3px solid black"> &ensp;@studentTickets&ensp;</a>
-    <input type="button" value="+" class="btn-success" style="width:30px" />
-    <a style="font-size:medium">Student&emsp;&ensp;&ensp;&emsp;&emsp;&emsp;PLN 10.00</a>
-</div>
-<br />
-<div class="col-md">
-    <input type="button" value="-" class="btn-danger" style="width:30px" }" />
-    <a style="border:3px solid black"> &ensp;@childTickets&ensp;</a>
-    <input type="button" value="+" class="btn-success" style="width:30px" />
-    <a style="font-size:medium">Child&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;PLN 15.00</a>
-</div>
-<br />
-<div class="col-md">
-    <input type="button" value="-" class="btn-danger" style="width:30px" }" />
-    <a style="border:3px solid black"> &ensp;@seniorTickets&ensp;</a>
-    <input type="button" value="+" class="btn-success" style="width:30px" />
-    <a style="font-size:medium">Senior&emsp;&ensp;&emsp;&emsp;&emsp;&emsp;PLN 18.00</a>
-</div>
-<div class="float-right">
-    <input type="button" value="Next" class="btn-dark" style="font-size:large; background-size:contain"
-           onclick="window.location.href='@Url.Action("Seats", "Home")';" />
-</div>
+</body>
+</html>
 
 

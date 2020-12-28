@@ -36,16 +36,15 @@
         <p><br> Movies played on the chosen day </p>
     </div>
     <ul class="list-group">
-        @for (var i = 0; i < 4; i++)
+        @foreach (var movie in ViewBag.movies)
         {
             <li class="list-group-item">
                 <img class="float-left" src="~/Content/photos/inception.jpg" style="height: 300px;" />
                 <p>
-                    <h1>&emsp;Inception</h1>
+                    <h1>&emsp; @movie.Title</h1>
                     <a>
                         &emsp;
-                        A thief who steals corporate secrets through the use of dream-sharing technology
-                        is given the inverse task of planting an idea into the mind of a C.E.O.
+                       @movie.Description
                     </a><br />
                 </p>
                 <div class="float-right">

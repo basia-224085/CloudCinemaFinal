@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Seats Page";
+}
+<div class="row">
+    <div class="col-md">
+        <a style="font-size: 30px">Choose seats:</a>
+    </div>
+    <div class="col-md">
+        <a>&emsp;&emsp;&emsp;</a>
+    </div>
+    <div class="col-md">
+        <a style="border:3px solid black; background-color:aliceblue"> &emsp; </a>
+        <a>&ensp;- avaliable </a>
+    </div>
+    <div class="col-md">
+        <a style="border:3px solid black; background-color:coral"> &emsp; </a>
+        <a>&ensp;- chosen </a>
+    </div>
+    <div class="col-md">
+        <a style="border:3px solid black; background-color:darkblue"> &emsp; </a>
+        <a>&ensp;- taken </a>
+    </div>
+</div>
+
+<div class="text-center" style="border:3px solid black;
+     background-color:lightblue; font-size:25px"> Screen </div>
+<br />
+@for (var i = 0; i < 7; i++)
+{
+    <a>&emsp;</a>
+    for (var j = 0; j < 20; j++)
+    {
+        <a style="border:3px solid black; background-color:aliceblue"
+           onclick=""> &emsp;&ensp;</a>
+        <a>&emsp;</a>
+    }
+    <br />
+}
+
+<div class="float-right">
+    <input type="button" value="Next" class="btn-dark" style="font-size:large; background-size:contain"
+           onclick="window.location.href='@Url.Action("Reservation", "Home")';" />
+</div>
+<br />

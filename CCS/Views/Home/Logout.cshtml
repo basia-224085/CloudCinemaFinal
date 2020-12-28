@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Logout Page";
+}
+<div class="text-center">
+    <h1 class="display-4">
+        Your reservation has been processed!
+        Confirmation was sent to your email.
+        Enjoy your movie :)
+    </h1>
+
+</div>
+<br />
+<div class="float-right">
+<input type="button" value="Sign out and exit" class="btn-dark" style="font-size:large; background-size:contain"
+       onclick="window.location.href='@Url.Action("Index", "Home")';" />
+</div>

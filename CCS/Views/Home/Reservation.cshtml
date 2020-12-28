@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Reservation Page";
+}
+<div class="text-center">
+    <h1 class="display-4">
+        Your reservation
+    </h1>
+    <p>Please check if all information is correct before submitting the reservation.</p>
+</div>
+<p>
+    Movie title: Inception<br />
+    Reservation date: 2020-12-01  13:00<br />
+    User email: user123@gmail.com<br />
+    Seats: 12A, 13A, 14A, 15A<br />
+    Tickets: 1x Normal, 2x Child, 1x Senior<br />
+    Total cost: PLN 68.50<br />
+</p>
+<br />
+<div class="float-right">
+    <input type="button" value="Submit reservation" class="btn-dark" style="font-size:large; background-size:contain"
+           onclick="window.location.href='@Url.Action("Logout", "Home")';" />
+</div>

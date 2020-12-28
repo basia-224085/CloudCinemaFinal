@@ -1,12 +1,14 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<html>
 
-<div class="text-center">
-    <h1 class="display-4">Movies List</h1>
 
-</div>
 <body>
+    <div class="text-center">
+        <h1 class="display-4">Movies List</h1>
+
+    </div>
     <div class="row">
         <div class="col-md">
             <input type="button" value="Monday" class="btn-dark" />
@@ -37,7 +39,7 @@
         @for (var i = 0; i < 4; i++)
         {
             <li class="list-group-item">
-                <img class="float-left" src="/photos/inception.jpg" style="height: 300px;" />
+                <img class="float-left" src="~/Content/photos/inception.jpg" style="height: 300px;" />
                 <p>
                     <h1>&emsp;Inception</h1>
                     <a>
@@ -72,3 +74,4 @@
         }
     </ul>
 </body>
+</html>

@@ -12,8 +12,23 @@ namespace CCS.Controllers
         {
             return View();
         }
-
-        public ActionResult Movie()
+        public ActionResult Trailer()
+        {
+            return View();
+        }
+        public ActionResult Logout()
+        {
+            return View();
+        }
+        public ActionResult Tickets()
+        {
+            return View();
+        }
+        public ActionResult Seats()
+        {
+            return View();
+        }
+        public ActionResult Reservation()
         {
             return View();
         }

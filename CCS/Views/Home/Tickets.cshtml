@@ -8,14 +8,21 @@
 <head>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var input = document.getElementById('job');
+            var input = document.getElementById('normal');
             if (localStorage['normal']) { // if normal is set
-                input.value = localStorage['job']; // set the value
+                input.value = localStorage['normal']; // set the value
             }
             input.onchange = function () {
                 localStorage['normal'] = this.value; // change localStorage on change
             }
         });
+    </script>
+    <script  type="text/javascript">
+        function saveChoices() {
+            @ViewBag.normal = localStorage['normal'].value;
+            console.log(@ViewBag.normal);
+            window.location.href='@Url.Action("Seats", "Home")';
+        }
     </script>
 </head>
 <body>
@@ -75,7 +82,7 @@
     </div>
     <div class="float-right">
         <input type="button" value="Next" class="btn-dark" style="font-size:large; background-size:contain"
-               onclick="window.location.href='@Url.Action("Seats", "Home")';" />
+               onclick="saveChoices()" />
     </div>
 
 </body>

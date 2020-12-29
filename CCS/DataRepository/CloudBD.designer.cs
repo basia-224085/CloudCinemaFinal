@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CCS.Models
+namespace CCS.DataRepository
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -23,13 +23,16 @@ namespace CCS.Models
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="CloudCinemaDB")]
-	public partial class DataClasses1DataContext : System.Data.Linq.DataContext
+	public partial class CloudBDDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertShowtimes(Showtimes instance);
+    partial void UpdateShowtimes(Showtimes instance);
+    partial void DeleteShowtimes(Showtimes instance);
     partial void InsertAspNetUsers(AspNetUsers instance);
     partial void UpdateAspNetUsers(AspNetUsers instance);
     partial void DeleteAspNetUsers(AspNetUsers instance);
@@ -51,42 +54,47 @@ namespace CCS.Models
     partial void InsertScreening_rooms(Screening_rooms instance);
     partial void UpdateScreening_rooms(Screening_rooms instance);
     partial void DeleteScreening_rooms(Screening_rooms instance);
-    partial void InsertSeat(Seat instance);
-    partial void UpdateSeat(Seat instance);
-    partial void DeleteSeat(Seat instance);
-    partial void InsertShowtimes(Showtimes instance);
-    partial void UpdateShowtimes(Showtimes instance);
-    partial void DeleteShowtimes(Showtimes instance);
+    partial void InsertSeats(Seats instance);
+    partial void UpdateSeats(Seats instance);
+    partial void DeleteSeats(Seats instance);
     #endregion
 		
-		public DataClasses1DataContext() : 
+		public CloudBDDataContext() : 
 				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["CloudCinemaDBConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(string connection) : 
+		public CloudBDDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(System.Data.IDbConnection connection) : 
+		public CloudBDDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public CloudBDDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public CloudBDDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
+		}
+		
+		public System.Data.Linq.Table<Showtimes> Showtimes
+		{
+			get
+			{
+				return this.GetTable<Showtimes>();
+			}
 		}
 		
 		public System.Data.Linq.Table<AspNetUsers> AspNetUsers
@@ -145,20 +153,232 @@ namespace CCS.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Seat> Seat
+		public System.Data.Linq.Table<Seats> Seats
 		{
 			get
 			{
-				return this.GetTable<Seat>();
+				return this.GetTable<Seats>();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Showtimes")]
+	public partial class Showtimes : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _showtime_id;
+		
+		private int _hour_id;
+		
+		private int _screening_room_id;
+		
+		private EntitySet<Schedule> _Schedule;
+		
+		private EntityRef<Hours> _Hours;
+		
+		private EntityRef<Screening_rooms> _Screening_rooms;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onshowtime_idChanging(int value);
+    partial void Onshowtime_idChanged();
+    partial void Onhour_idChanging(int value);
+    partial void Onhour_idChanged();
+    partial void Onscreening_room_idChanging(int value);
+    partial void Onscreening_room_idChanged();
+    #endregion
+		
+		public Showtimes()
+		{
+			this._Schedule = new EntitySet<Schedule>(new Action<Schedule>(this.attach_Schedule), new Action<Schedule>(this.detach_Schedule));
+			this._Hours = default(EntityRef<Hours>);
+			this._Screening_rooms = default(EntityRef<Screening_rooms>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_showtime_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int showtime_id
+		{
+			get
+			{
+				return this._showtime_id;
+			}
+			set
+			{
+				if ((this._showtime_id != value))
+				{
+					this.Onshowtime_idChanging(value);
+					this.SendPropertyChanging();
+					this._showtime_id = value;
+					this.SendPropertyChanged("showtime_id");
+					this.Onshowtime_idChanged();
+				}
 			}
 		}
 		
-		public System.Data.Linq.Table<Showtimes> Showtimes
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hour_id", DbType="Int NOT NULL")]
+		public int hour_id
 		{
 			get
 			{
-				return this.GetTable<Showtimes>();
+				return this._hour_id;
 			}
+			set
+			{
+				if ((this._hour_id != value))
+				{
+					if (this._Hours.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onhour_idChanging(value);
+					this.SendPropertyChanging();
+					this._hour_id = value;
+					this.SendPropertyChanged("hour_id");
+					this.Onhour_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_screening_room_id", DbType="Int NOT NULL")]
+		public int screening_room_id
+		{
+			get
+			{
+				return this._screening_room_id;
+			}
+			set
+			{
+				if ((this._screening_room_id != value))
+				{
+					if (this._Screening_rooms.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onscreening_room_idChanging(value);
+					this.SendPropertyChanging();
+					this._screening_room_id = value;
+					this.SendPropertyChanged("screening_room_id");
+					this.Onscreening_room_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Showtimes_Schedule", Storage="_Schedule", ThisKey="showtime_id", OtherKey="showtime_id")]
+		public EntitySet<Schedule> Schedule
+		{
+			get
+			{
+				return this._Schedule;
+			}
+			set
+			{
+				this._Schedule.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Hours_Showtimes", Storage="_Hours", ThisKey="hour_id", OtherKey="hour_id", IsForeignKey=true)]
+		public Hours Hours
+		{
+			get
+			{
+				return this._Hours.Entity;
+			}
+			set
+			{
+				Hours previousValue = this._Hours.Entity;
+				if (((previousValue != value) 
+							|| (this._Hours.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Hours.Entity = null;
+						previousValue.Showtimes.Remove(this);
+					}
+					this._Hours.Entity = value;
+					if ((value != null))
+					{
+						value.Showtimes.Add(this);
+						this._hour_id = value.hour_id;
+					}
+					else
+					{
+						this._hour_id = default(int);
+					}
+					this.SendPropertyChanged("Hours");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Screening_rooms_Showtimes", Storage="_Screening_rooms", ThisKey="screening_room_id", OtherKey="screening_room_id", IsForeignKey=true)]
+		public Screening_rooms Screening_rooms
+		{
+			get
+			{
+				return this._Screening_rooms.Entity;
+			}
+			set
+			{
+				Screening_rooms previousValue = this._Screening_rooms.Entity;
+				if (((previousValue != value) 
+							|| (this._Screening_rooms.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Screening_rooms.Entity = null;
+						previousValue.Showtimes.Remove(this);
+					}
+					this._Screening_rooms.Entity = value;
+					if ((value != null))
+					{
+						value.Showtimes.Add(this);
+						this._screening_room_id = value.screening_room_id;
+					}
+					else
+					{
+						this._screening_room_id = default(int);
+					}
+					this.SendPropertyChanged("Screening_rooms");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Schedule(Schedule entity)
+		{
+			this.SendPropertyChanging();
+			entity.Showtimes = this;
+		}
+		
+		private void detach_Schedule(Schedule entity)
+		{
+			this.SendPropertyChanging();
+			entity.Showtimes = null;
 		}
 	}
 	
@@ -638,7 +858,7 @@ namespace CCS.Models
 		
 		private int _hour_id;
 		
-		private string _hour;
+		private string _hour_name;
 		
 		private EntitySet<Showtimes> _Showtimes;
 		
@@ -648,8 +868,8 @@ namespace CCS.Models
     partial void OnCreated();
     partial void Onhour_idChanging(int value);
     partial void Onhour_idChanged();
-    partial void OnhourChanging(string value);
-    partial void OnhourChanged();
+    partial void Onhour_nameChanging(string value);
+    partial void Onhour_nameChanged();
     #endregion
 		
 		public Hours()
@@ -678,22 +898,22 @@ namespace CCS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hour", DbType="NVarChar(10) NOT NULL", CanBeNull=false)]
-		public string hour
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hour_name", DbType="NVarChar(10) NOT NULL", CanBeNull=false)]
+		public string hour_name
 		{
 			get
 			{
-				return this._hour;
+				return this._hour_name;
 			}
 			set
 			{
-				if ((this._hour != value))
+				if ((this._hour_name != value))
 				{
-					this.OnhourChanging(value);
+					this.Onhour_nameChanging(value);
 					this.SendPropertyChanging();
-					this._hour = value;
-					this.SendPropertyChanged("hour");
-					this.OnhourChanged();
+					this._hour_name = value;
+					this.SendPropertyChanged("hour_name");
+					this.Onhour_nameChanged();
 				}
 			}
 		}
@@ -766,8 +986,6 @@ namespace CCS.Models
 		
 		private EntitySet<Schedule> _Schedule;
 		
-		private EntitySet<Seat> _Seat;
-		
 		private EntityRef<Genre> _Genre;
 		
     #region Extensibility Method Definitions
@@ -793,7 +1011,6 @@ namespace CCS.Models
 		public Movies()
 		{
 			this._Schedule = new EntitySet<Schedule>(new Action<Schedule>(this.attach_Schedule), new Action<Schedule>(this.detach_Schedule));
-			this._Seat = new EntitySet<Seat>(new Action<Seat>(this.attach_Seat), new Action<Seat>(this.detach_Seat));
 			this._Genre = default(EntityRef<Genre>);
 			OnCreated();
 		}
@@ -842,7 +1059,7 @@ namespace CCS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="NVarChar(60) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="NVarChar(120) NOT NULL", CanBeNull=false)]
 		public string title
 		{
 			get
@@ -862,7 +1079,7 @@ namespace CCS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trailer", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trailer", DbType="NVarChar(200)")]
 		public string trailer
 		{
 			get
@@ -882,7 +1099,7 @@ namespace CCS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price_per_seat", DbType="Decimal(2,2) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price_per_seat", DbType="Decimal(18,0) NOT NULL")]
 		public decimal price_per_seat
 		{
 			get
@@ -902,7 +1119,7 @@ namespace CCS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="NVarChar(2000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="NVarChar(4000)")]
 		public string description
 		{
 			get
@@ -952,19 +1169,6 @@ namespace CCS.Models
 			set
 			{
 				this._Schedule.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Movies_Seat", Storage="_Seat", ThisKey="movie_id", OtherKey="movie_id")]
-		public EntitySet<Seat> Seat
-		{
-			get
-			{
-				return this._Seat;
-			}
-			set
-			{
-				this._Seat.Assign(value);
 			}
 		}
 		
@@ -1033,18 +1237,6 @@ namespace CCS.Models
 			this.SendPropertyChanging();
 			entity.Movies = null;
 		}
-		
-		private void attach_Seat(Seat entity)
-		{
-			this.SendPropertyChanging();
-			entity.Movies = this;
-		}
-		
-		private void detach_Seat(Seat entity)
-		{
-			this.SendPropertyChanging();
-			entity.Movies = null;
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Reservations")]
@@ -1055,15 +1247,11 @@ namespace CCS.Models
 		
 		private int _reservation_id;
 		
-		private int _seat_id;
-		
-		private decimal _total_price;
-		
 		private string _Id;
 		
-		private EntityRef<AspNetUsers> _AspNetUsers;
+		private EntitySet<Seats> _Seats;
 		
-		private EntityRef<Seat> _Seat;
+		private EntityRef<AspNetUsers> _AspNetUsers;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1071,18 +1259,14 @@ namespace CCS.Models
     partial void OnCreated();
     partial void Onreservation_idChanging(int value);
     partial void Onreservation_idChanged();
-    partial void Onseat_idChanging(int value);
-    partial void Onseat_idChanged();
-    partial void Ontotal_priceChanging(decimal value);
-    partial void Ontotal_priceChanged();
     partial void OnIdChanging(string value);
     partial void OnIdChanged();
     #endregion
 		
 		public Reservations()
 		{
+			this._Seats = new EntitySet<Seats>(new Action<Seats>(this.attach_Seats), new Action<Seats>(this.detach_Seats));
 			this._AspNetUsers = default(EntityRef<AspNetUsers>);
-			this._Seat = default(EntityRef<Seat>);
 			OnCreated();
 		}
 		
@@ -1102,50 +1286,6 @@ namespace CCS.Models
 					this._reservation_id = value;
 					this.SendPropertyChanged("reservation_id");
 					this.Onreservation_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_seat_id", DbType="Int NOT NULL")]
-		public int seat_id
-		{
-			get
-			{
-				return this._seat_id;
-			}
-			set
-			{
-				if ((this._seat_id != value))
-				{
-					if (this._Seat.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onseat_idChanging(value);
-					this.SendPropertyChanging();
-					this._seat_id = value;
-					this.SendPropertyChanged("seat_id");
-					this.Onseat_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_total_price", DbType="Decimal(3,2) NOT NULL")]
-		public decimal total_price
-		{
-			get
-			{
-				return this._total_price;
-			}
-			set
-			{
-				if ((this._total_price != value))
-				{
-					this.Ontotal_priceChanging(value);
-					this.SendPropertyChanging();
-					this._total_price = value;
-					this.SendPropertyChanged("total_price");
-					this.Ontotal_priceChanged();
 				}
 			}
 		}
@@ -1171,6 +1311,19 @@ namespace CCS.Models
 					this.SendPropertyChanged("Id");
 					this.OnIdChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reservations_Seats", Storage="_Seats", ThisKey="reservation_id", OtherKey="reservation_id")]
+		public EntitySet<Seats> Seats
+		{
+			get
+			{
+				return this._Seats;
+			}
+			set
+			{
+				this._Seats.Assign(value);
 			}
 		}
 		
@@ -1208,40 +1361,6 @@ namespace CCS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Seat_Reservations", Storage="_Seat", ThisKey="seat_id", OtherKey="seat_id", IsForeignKey=true)]
-		public Seat Seat
-		{
-			get
-			{
-				return this._Seat.Entity;
-			}
-			set
-			{
-				Seat previousValue = this._Seat.Entity;
-				if (((previousValue != value) 
-							|| (this._Seat.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Seat.Entity = null;
-						previousValue.Reservations.Remove(this);
-					}
-					this._Seat.Entity = value;
-					if ((value != null))
-					{
-						value.Reservations.Add(this);
-						this._seat_id = value.seat_id;
-					}
-					else
-					{
-						this._seat_id = default(int);
-					}
-					this.SendPropertyChanged("Seat");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1261,6 +1380,18 @@ namespace CCS.Models
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_Seats(Seats entity)
+		{
+			this.SendPropertyChanging();
+			entity.Reservations = this;
+		}
+		
+		private void detach_Seats(Seats entity)
+		{
+			this.SendPropertyChanging();
+			entity.Reservations = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Schedule")]
@@ -1269,51 +1400,62 @@ namespace CCS.Models
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private System.DateTime _date;
+		private int _schedule_id;
 		
 		private int _showtime_id;
 		
 		private int _movie_id;
 		
+		private int _seat_id;
+		
+		private int _movie_date;
+		
 		private EntityRef<Movies> _Movies;
 		
 		private EntityRef<Showtimes> _Showtimes;
+		
+		private EntityRef<Seats> _Seats;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OndateChanging(System.DateTime value);
-    partial void OndateChanged();
+    partial void Onschedule_idChanging(int value);
+    partial void Onschedule_idChanged();
     partial void Onshowtime_idChanging(int value);
     partial void Onshowtime_idChanged();
     partial void Onmovie_idChanging(int value);
     partial void Onmovie_idChanged();
+    partial void Onseat_idChanging(int value);
+    partial void Onseat_idChanged();
+    partial void Onmovie_dateChanging(int value);
+    partial void Onmovie_dateChanged();
     #endregion
 		
 		public Schedule()
 		{
 			this._Movies = default(EntityRef<Movies>);
 			this._Showtimes = default(EntityRef<Showtimes>);
+			this._Seats = default(EntityRef<Seats>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date", DbType="DateTime NOT NULL", IsPrimaryKey=true)]
-		public System.DateTime date
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_schedule_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int schedule_id
 		{
 			get
 			{
-				return this._date;
+				return this._schedule_id;
 			}
 			set
 			{
-				if ((this._date != value))
+				if ((this._schedule_id != value))
 				{
-					this.OndateChanging(value);
+					this.Onschedule_idChanging(value);
 					this.SendPropertyChanging();
-					this._date = value;
-					this.SendPropertyChanged("date");
-					this.OndateChanged();
+					this._schedule_id = value;
+					this.SendPropertyChanged("schedule_id");
+					this.Onschedule_idChanged();
 				}
 			}
 		}
@@ -1362,6 +1504,50 @@ namespace CCS.Models
 					this._movie_id = value;
 					this.SendPropertyChanged("movie_id");
 					this.Onmovie_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_seat_id", DbType="Int NOT NULL")]
+		public int seat_id
+		{
+			get
+			{
+				return this._seat_id;
+			}
+			set
+			{
+				if ((this._seat_id != value))
+				{
+					if (this._Seats.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onseat_idChanging(value);
+					this.SendPropertyChanging();
+					this._seat_id = value;
+					this.SendPropertyChanged("seat_id");
+					this.Onseat_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_movie_date", DbType="Int NOT NULL")]
+		public int movie_date
+		{
+			get
+			{
+				return this._movie_date;
+			}
+			set
+			{
+				if ((this._movie_date != value))
+				{
+					this.Onmovie_dateChanging(value);
+					this.SendPropertyChanging();
+					this._movie_date = value;
+					this.SendPropertyChanged("movie_date");
+					this.Onmovie_dateChanged();
 				}
 			}
 		}
@@ -1430,6 +1616,40 @@ namespace CCS.Models
 						this._showtime_id = default(int);
 					}
 					this.SendPropertyChanged("Showtimes");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Seats_Schedule", Storage="_Seats", ThisKey="seat_id", OtherKey="seat_id", IsForeignKey=true)]
+		public Seats Seats
+		{
+			get
+			{
+				return this._Seats.Entity;
+			}
+			set
+			{
+				Seats previousValue = this._Seats.Entity;
+				if (((previousValue != value) 
+							|| (this._Seats.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Seats.Entity = null;
+						previousValue.Schedule.Remove(this);
+					}
+					this._Seats.Entity = value;
+					if ((value != null))
+					{
+						value.Schedule.Add(this);
+						this._seat_id = value.seat_id;
+					}
+					else
+					{
+						this._seat_id = default(int);
+					}
+					this.SendPropertyChanged("Seats");
 				}
 			}
 		}
@@ -1569,25 +1789,23 @@ namespace CCS.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Seat")]
-	public partial class Seat : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Seats")]
+	public partial class Seats : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _seat_id;
 		
-		private int _movie_id;
+		private System.Nullable<int> _reservation_id;
 		
-		private int _column;
+		private int _seat_column;
 		
-		private int _row;
+		private int _seat_row;
 		
-		private bool _reserved;
+		private EntitySet<Schedule> _Schedule;
 		
-		private EntitySet<Reservations> _Reservations;
-		
-		private EntityRef<Movies> _Movies;
+		private EntityRef<Reservations> _Reservations;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1595,20 +1813,18 @@ namespace CCS.Models
     partial void OnCreated();
     partial void Onseat_idChanging(int value);
     partial void Onseat_idChanged();
-    partial void Onmovie_idChanging(int value);
-    partial void Onmovie_idChanged();
-    partial void OncolumnChanging(int value);
-    partial void OncolumnChanged();
-    partial void OnrowChanging(int value);
-    partial void OnrowChanged();
-    partial void OnreservedChanging(bool value);
-    partial void OnreservedChanged();
+    partial void Onreservation_idChanging(System.Nullable<int> value);
+    partial void Onreservation_idChanged();
+    partial void Onseat_columnChanging(int value);
+    partial void Onseat_columnChanged();
+    partial void Onseat_rowChanging(int value);
+    partial void Onseat_rowChanged();
     #endregion
 		
-		public Seat()
+		public Seats()
 		{
-			this._Reservations = new EntitySet<Reservations>(new Action<Reservations>(this.attach_Reservations), new Action<Reservations>(this.detach_Reservations));
-			this._Movies = default(EntityRef<Movies>);
+			this._Schedule = new EntitySet<Schedule>(new Action<Schedule>(this.attach_Schedule), new Action<Schedule>(this.detach_Schedule));
+			this._Reservations = default(EntityRef<Reservations>);
 			OnCreated();
 		}
 		
@@ -1632,277 +1848,71 @@ namespace CCS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_movie_id", DbType="Int NOT NULL")]
-		public int movie_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reservation_id", DbType="Int")]
+		public System.Nullable<int> reservation_id
 		{
 			get
 			{
-				return this._movie_id;
+				return this._reservation_id;
 			}
 			set
 			{
-				if ((this._movie_id != value))
+				if ((this._reservation_id != value))
 				{
-					if (this._Movies.HasLoadedOrAssignedValue)
+					if (this._Reservations.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.Onmovie_idChanging(value);
+					this.Onreservation_idChanging(value);
 					this.SendPropertyChanging();
-					this._movie_id = value;
-					this.SendPropertyChanged("movie_id");
-					this.Onmovie_idChanged();
+					this._reservation_id = value;
+					this.SendPropertyChanged("reservation_id");
+					this.Onreservation_idChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[column]", Storage="_column", DbType="Int NOT NULL")]
-		public int column
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_seat_column", DbType="Int NOT NULL")]
+		public int seat_column
 		{
 			get
 			{
-				return this._column;
+				return this._seat_column;
 			}
 			set
 			{
-				if ((this._column != value))
+				if ((this._seat_column != value))
 				{
-					this.OncolumnChanging(value);
+					this.Onseat_columnChanging(value);
 					this.SendPropertyChanging();
-					this._column = value;
-					this.SendPropertyChanged("column");
-					this.OncolumnChanged();
+					this._seat_column = value;
+					this.SendPropertyChanged("seat_column");
+					this.Onseat_columnChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_row", DbType="Int NOT NULL")]
-		public int row
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_seat_row", DbType="Int NOT NULL")]
+		public int seat_row
 		{
 			get
 			{
-				return this._row;
+				return this._seat_row;
 			}
 			set
 			{
-				if ((this._row != value))
+				if ((this._seat_row != value))
 				{
-					this.OnrowChanging(value);
+					this.Onseat_rowChanging(value);
 					this.SendPropertyChanging();
-					this._row = value;
-					this.SendPropertyChanged("row");
-					this.OnrowChanged();
+					this._seat_row = value;
+					this.SendPropertyChanged("seat_row");
+					this.Onseat_rowChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reserved", DbType="Bit NOT NULL")]
-		public bool reserved
-		{
-			get
-			{
-				return this._reserved;
-			}
-			set
-			{
-				if ((this._reserved != value))
-				{
-					this.OnreservedChanging(value);
-					this.SendPropertyChanging();
-					this._reserved = value;
-					this.SendPropertyChanged("reserved");
-					this.OnreservedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Seat_Reservations", Storage="_Reservations", ThisKey="seat_id", OtherKey="seat_id")]
-		public EntitySet<Reservations> Reservations
-		{
-			get
-			{
-				return this._Reservations;
-			}
-			set
-			{
-				this._Reservations.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Movies_Seat", Storage="_Movies", ThisKey="movie_id", OtherKey="movie_id", IsForeignKey=true)]
-		public Movies Movies
-		{
-			get
-			{
-				return this._Movies.Entity;
-			}
-			set
-			{
-				Movies previousValue = this._Movies.Entity;
-				if (((previousValue != value) 
-							|| (this._Movies.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Movies.Entity = null;
-						previousValue.Seat.Remove(this);
-					}
-					this._Movies.Entity = value;
-					if ((value != null))
-					{
-						value.Seat.Add(this);
-						this._movie_id = value.movie_id;
-					}
-					else
-					{
-						this._movie_id = default(int);
-					}
-					this.SendPropertyChanged("Movies");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Reservations(Reservations entity)
-		{
-			this.SendPropertyChanging();
-			entity.Seat = this;
-		}
-		
-		private void detach_Reservations(Reservations entity)
-		{
-			this.SendPropertyChanging();
-			entity.Seat = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Showtimes")]
-	public partial class Showtimes : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _showtime_id;
-		
-		private int _hour_id;
-		
-		private int _screening_room_id;
-		
-		private EntitySet<Schedule> _Schedule;
-		
-		private EntityRef<Hours> _Hours;
-		
-		private EntityRef<Screening_rooms> _Screening_rooms;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onshowtime_idChanging(int value);
-    partial void Onshowtime_idChanged();
-    partial void Onhour_idChanging(int value);
-    partial void Onhour_idChanged();
-    partial void Onscreening_room_idChanging(int value);
-    partial void Onscreening_room_idChanged();
-    #endregion
-		
-		public Showtimes()
-		{
-			this._Schedule = new EntitySet<Schedule>(new Action<Schedule>(this.attach_Schedule), new Action<Schedule>(this.detach_Schedule));
-			this._Hours = default(EntityRef<Hours>);
-			this._Screening_rooms = default(EntityRef<Screening_rooms>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_showtime_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int showtime_id
-		{
-			get
-			{
-				return this._showtime_id;
-			}
-			set
-			{
-				if ((this._showtime_id != value))
-				{
-					this.Onshowtime_idChanging(value);
-					this.SendPropertyChanging();
-					this._showtime_id = value;
-					this.SendPropertyChanged("showtime_id");
-					this.Onshowtime_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hour_id", DbType="Int NOT NULL")]
-		public int hour_id
-		{
-			get
-			{
-				return this._hour_id;
-			}
-			set
-			{
-				if ((this._hour_id != value))
-				{
-					if (this._Hours.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onhour_idChanging(value);
-					this.SendPropertyChanging();
-					this._hour_id = value;
-					this.SendPropertyChanged("hour_id");
-					this.Onhour_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_screening_room_id", DbType="Int NOT NULL")]
-		public int screening_room_id
-		{
-			get
-			{
-				return this._screening_room_id;
-			}
-			set
-			{
-				if ((this._screening_room_id != value))
-				{
-					if (this._Screening_rooms.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onscreening_room_idChanging(value);
-					this.SendPropertyChanging();
-					this._screening_room_id = value;
-					this.SendPropertyChanged("screening_room_id");
-					this.Onscreening_room_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Showtimes_Schedule", Storage="_Schedule", ThisKey="showtime_id", OtherKey="showtime_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Seats_Schedule", Storage="_Schedule", ThisKey="seat_id", OtherKey="seat_id")]
 		public EntitySet<Schedule> Schedule
 		{
 			get
@@ -1915,70 +1925,36 @@ namespace CCS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Hours_Showtimes", Storage="_Hours", ThisKey="hour_id", OtherKey="hour_id", IsForeignKey=true)]
-		public Hours Hours
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reservations_Seats", Storage="_Reservations", ThisKey="reservation_id", OtherKey="reservation_id", IsForeignKey=true)]
+		public Reservations Reservations
 		{
 			get
 			{
-				return this._Hours.Entity;
+				return this._Reservations.Entity;
 			}
 			set
 			{
-				Hours previousValue = this._Hours.Entity;
+				Reservations previousValue = this._Reservations.Entity;
 				if (((previousValue != value) 
-							|| (this._Hours.HasLoadedOrAssignedValue == false)))
+							|| (this._Reservations.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Hours.Entity = null;
-						previousValue.Showtimes.Remove(this);
+						this._Reservations.Entity = null;
+						previousValue.Seats.Remove(this);
 					}
-					this._Hours.Entity = value;
+					this._Reservations.Entity = value;
 					if ((value != null))
 					{
-						value.Showtimes.Add(this);
-						this._hour_id = value.hour_id;
+						value.Seats.Add(this);
+						this._reservation_id = value.reservation_id;
 					}
 					else
 					{
-						this._hour_id = default(int);
+						this._reservation_id = default(Nullable<int>);
 					}
-					this.SendPropertyChanged("Hours");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Screening_rooms_Showtimes", Storage="_Screening_rooms", ThisKey="screening_room_id", OtherKey="screening_room_id", IsForeignKey=true)]
-		public Screening_rooms Screening_rooms
-		{
-			get
-			{
-				return this._Screening_rooms.Entity;
-			}
-			set
-			{
-				Screening_rooms previousValue = this._Screening_rooms.Entity;
-				if (((previousValue != value) 
-							|| (this._Screening_rooms.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Screening_rooms.Entity = null;
-						previousValue.Showtimes.Remove(this);
-					}
-					this._Screening_rooms.Entity = value;
-					if ((value != null))
-					{
-						value.Showtimes.Add(this);
-						this._screening_room_id = value.screening_room_id;
-					}
-					else
-					{
-						this._screening_room_id = default(int);
-					}
-					this.SendPropertyChanged("Screening_rooms");
+					this.SendPropertyChanged("Reservations");
 				}
 			}
 		}
@@ -2006,13 +1982,13 @@ namespace CCS.Models
 		private void attach_Schedule(Schedule entity)
 		{
 			this.SendPropertyChanging();
-			entity.Showtimes = this;
+			entity.Seats = this;
 		}
 		
 		private void detach_Schedule(Schedule entity)
 		{
 			this.SendPropertyChanging();
-			entity.Showtimes = null;
+			entity.Seats = null;
 		}
 	}
 }

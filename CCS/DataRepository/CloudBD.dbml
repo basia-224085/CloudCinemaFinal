@@ -1,5 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CloudCinemaDB" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CloudCinemaDB" Class="CloudBDDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=cloudcinema.database.windows.net;Initial Catalog=CloudCinemaDB;User ID=cloudcinema;Connect Timeout=60;Encrypt=True;TrustServerCertificate=False" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="CloudCinemaDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Showtimes" Member="Showtimes">
+    <Type Name="Showtimes">
+      <Column Name="showtime_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="hour_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="screening_room_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Showtimes_Schedule" Member="Schedule" ThisKey="showtime_id" OtherKey="showtime_id" Type="Schedule" />
+      <Association Name="Hours_Showtimes" Member="Hours" ThisKey="hour_id" OtherKey="hour_id" Type="Hours" IsForeignKey="true" />
+      <Association Name="Screening_rooms_Showtimes" Member="Screening_rooms" ThisKey="screening_room_id" OtherKey="screening_room_id" Type="Screening_rooms" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.AspNetUsers" Member="AspNetUsers">
     <Type Name="AspNetUsers">
       <Column Name="Id" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -27,7 +37,7 @@
   <Table Name="dbo.Hours" Member="Hours">
     <Type Name="Hours">
       <Column Name="hour_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="hour" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="hour_name" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
       <Association Name="Hours_Showtimes" Member="Showtimes" ThisKey="hour_id" OtherKey="hour_id" Type="Showtimes" />
     </Type>
   </Table>
@@ -35,33 +45,33 @@
     <Type Name="Movies">
       <Column Name="movie_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="genre_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="title" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
-      <Column Name="trailer" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="price_per_seat" Type="System.Decimal" DbType="Decimal(2,2) NOT NULL" CanBeNull="false" />
-      <Column Name="description" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="title" Type="System.String" DbType="NVarChar(120) NOT NULL" CanBeNull="false" />
+      <Column Name="trailer" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="price_per_seat" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
       <Column Name="duration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Movies_Schedule" Member="Schedule" ThisKey="movie_id" OtherKey="movie_id" Type="Schedule" />
-      <Association Name="Movies_Seat" Member="Seat" ThisKey="movie_id" OtherKey="movie_id" Type="Seat" />
       <Association Name="Genre_Movies" Member="Genre" ThisKey="genre_id" OtherKey="genre_id" Type="Genre" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Reservations" Member="Reservations">
     <Type Name="Reservations">
       <Column Name="reservation_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="seat_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="total_price" Type="System.Decimal" DbType="Decimal(3,2) NOT NULL" CanBeNull="false" />
       <Column Name="Id" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Association Name="Reservations_Seats" Member="Seats" ThisKey="reservation_id" OtherKey="reservation_id" Type="Seats" />
       <Association Name="AspNetUsers_Reservations" Member="AspNetUsers" ThisKey="Id" OtherKey="Id" Type="AspNetUsers" IsForeignKey="true" />
-      <Association Name="Seat_Reservations" Member="Seat" ThisKey="seat_id" OtherKey="seat_id" Type="Seat" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Schedule" Member="Schedule">
     <Type Name="Schedule">
-      <Column Name="date" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="schedule_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="showtime_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="movie_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="seat_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="movie_date" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Movies_Schedule" Member="Movies" ThisKey="movie_id" OtherKey="movie_id" Type="Movies" IsForeignKey="true" />
       <Association Name="Showtimes_Schedule" Member="Showtimes" ThisKey="showtime_id" OtherKey="showtime_id" Type="Showtimes" IsForeignKey="true" />
+      <Association Name="Seats_Schedule" Member="Seats" ThisKey="seat_id" OtherKey="seat_id" Type="Seats" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Screening_rooms" Member="Screening_rooms">
@@ -71,25 +81,14 @@
       <Association Name="Screening_rooms_Showtimes" Member="Showtimes" ThisKey="screening_room_id" OtherKey="screening_room_id" Type="Showtimes" />
     </Type>
   </Table>
-  <Table Name="dbo.Seat" Member="Seat">
-    <Type Name="Seat">
+  <Table Name="dbo.Seats" Member="Seats">
+    <Type Name="Seats">
       <Column Name="seat_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="movie_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="[column]" Member="column" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="row" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="reserved" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="Seat_Reservations" Member="Reservations" ThisKey="seat_id" OtherKey="seat_id" Type="Reservations" />
-      <Association Name="Movies_Seat" Member="Movies" ThisKey="movie_id" OtherKey="movie_id" Type="Movies" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Showtimes" Member="Showtimes">
-    <Type Name="Showtimes">
-      <Column Name="showtime_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="hour_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="screening_room_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Showtimes_Schedule" Member="Schedule" ThisKey="showtime_id" OtherKey="showtime_id" Type="Schedule" />
-      <Association Name="Hours_Showtimes" Member="Hours" ThisKey="hour_id" OtherKey="hour_id" Type="Hours" IsForeignKey="true" />
-      <Association Name="Screening_rooms_Showtimes" Member="Screening_rooms" ThisKey="screening_room_id" OtherKey="screening_room_id" Type="Screening_rooms" IsForeignKey="true" />
+      <Column Name="reservation_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="seat_column" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="seat_row" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Seats_Schedule" Member="Schedule" ThisKey="seat_id" OtherKey="seat_id" Type="Schedule" />
+      <Association Name="Reservations_Seats" Member="Reservations" ThisKey="reservation_id" OtherKey="reservation_id" Type="Reservations" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

@@ -11,6 +11,10 @@
             localStorage.setItem("link", _link);
             window.location.href = '@Url.Action("Trailer", "Home")';
         }
+         function on_chosen_movie(_movie) {
+             localStorage.setItem("movie", JSON.stringify(_movie));
+            window.location.href = '@Url.Action("Tickets", "Home")';
+        }
     </script>
 </head>
 
@@ -54,7 +58,7 @@
                     <h1>&emsp; @movie.title</h1>
                     <a>
                         &emsp;
-                        @movie.trailer
+                        @movie.description
                     </a><br />
                 </p>
                 <div class="float-right">
@@ -67,16 +71,18 @@
                 <div class="row">
                     <div class="col-md">
                         <input type="button" value="12:00" class="btn-outline-dark"
-                               onclick="window.location.href='@Url.Action("Tickets", "Home")';" />
+                               onclick="on_chosen_movie()" />
                     </div>
                     <div class="col-md">
                         <input type="button" value="14:30" class="btn-outline-dark" disabled />
                     </div>
                     <div class="col-md">
-                        <input type="button" value="18:00" class="btn-outline-dark" />
+                        <input type="button" value="18:00" class="btn-outline-dark"
+                               onclick="on_chosen_movie()"/>
                     </div>
                     <div class="col-md">
-                        <input type="button" value="21:30" class="btn-outline-dark" />
+                        <input type="button" value="21:30" class="btn-outline-dark"
+                               onclick="on_chosen_movie()"/>
                     </div>
                 </div>
             </li>

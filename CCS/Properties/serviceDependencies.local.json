@@ -12,6 +12,12 @@
       "type": "mssql.azure",
       "connectionId": "Server=tcp:cloudcinema.database.windows.net,1433;InitialCatalog=CloudCinemaDB;PersistSecurityInfo=False;UserID=cloudcinema;Password=Ccs12345;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;ConnectionTimeout=30;",
       "secretStore": "LocalSecretsFile"
+    },
+    "storage1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/moviesposters",
+      "type": "storage.azure",
+      "connectionId": "my_connection",
+      "secretStore": "LocalSecretsFile"
     }
   }
 }

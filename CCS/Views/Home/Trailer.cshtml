@@ -9,17 +9,13 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    
-        <script type="text/javascript">
-            function on_create() {
-                document.getElementById("link_frame").src = localStorage.getItem("link");
-            }
-        </script>
-    
+    <script type="text/javascript">
+        function on_create() {
+            document.getElementById("link_frame").src = localStorage.getItem("link");
+        }
+    </script>
 </head>
 <body onload="on_create()">
-    <h1 id="id1">Embedded Video Example</h1>
-    <p>The following video provides an introduction to WebMatrix:</p>
     <iframe id="link_frame"
             width="560"
             height="315"

@@ -7,8 +7,9 @@
 <html>
 <head>
     <script type="text/javascript">
-        function on_click() {
-
+        function on_click(_link) {
+            localStorage.setItem("link", _link);
+            window.location.href = '@Url.Action("Trailer", "Home")';
         }
     </script>
 </head>
@@ -53,12 +54,12 @@
                     <h1>&emsp; @movie.title</h1>
                     <a>
                         &emsp;
-                        @movie.description
+                        @movie.trailer
                     </a><br />
                 </p>
                 <div class="float-right">
                     <input type="button" value="Watch Trailer" class="btn-outline-dark"
-                           onclick="window.location.href='@Url.Action("Trailer", "Home")';" />
+                           onclick="on_click('@movie.trailer')" />     
 
                 </div>
                 <br />

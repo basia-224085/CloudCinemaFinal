@@ -1,6 +1,7 @@
 ﻿
 using CCS.DataRepository;
 using CCS.Models;
+using CCS.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,14 @@ namespace CCS.Controllers
         public ActionResult Index()
         {
             List<Movies> movies = repo.getMoviesOfTheDay(1);
-            ViewBag.movies = movies;
-            return View();
+            var movieListViewModel = new MovieListViewModel(movies);
+            return View(movieListViewModel);
         }
         public ActionResult Trailer()
         {
-            return View();
+            List<Movies> movies = repo.getMoviesOfTheDay(1);
+            var movieListViewModel = new MovieListViewModel(movies);
+            return View(movieListViewModel);
         }
         public ActionResult Logout()
         {

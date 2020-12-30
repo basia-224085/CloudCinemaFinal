@@ -1,8 +1,17 @@
 ﻿@{
     ViewBag.Title = "Home Page";
-}
-<html>
 
+}
+@model CCS.ViewModels.MovieListViewModel
+
+<html>
+<head>
+    <script type="text/javascript">
+        function on_click() {
+
+        }
+    </script>
+</head>
 
 <body>
     <div class="text-center">
@@ -36,7 +45,7 @@
         <p><br> Movies played on the chosen day </p>
     </div>
     <ul class="list-group">
-        @foreach (var movie in ViewBag.movies)
+        @foreach (var movie in Model.Movies)
         {
             <li class="list-group-item">
                 <img class="float-left" src="~/Content/photos/inception.jpg" style="height: 300px;" />
@@ -44,7 +53,7 @@
                     <h1>&emsp; @movie.title</h1>
                     <a>
                         &emsp;
-                       @movie.description
+                        @movie.description
                     </a><br />
                 </p>
                 <div class="float-right">

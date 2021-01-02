@@ -35,28 +35,32 @@
                 || document.getElementById("two_seater").value == "not_selected"
                 || document.getElementById("seven_seater").value == "not_selected") {
                 window.alert("Please choose the amount of all types of tickets.");
-            } else {
+            }  else {
                 var tickets_amount = parseInt(localStorage.getItem("five_seater")) + parseInt(localStorage.getItem("two_seater")) + parseInt(localStorage.getItem("seven_seater"));
-                const show = JSON.parse(localStorage.getItem("show"));
-                if (show.Reserved_spots + tickets_amount > show.Capacity) window.alert("We are sorry, but there is not enough spots :(");
-                else {
-                    show.Reserved_spots += tickets_amount;
-                    // wysylanie danych do kontrolera
-                    var id = show.Schedule_id;
-                    var spots = show.Reserved_spots;
-                    var JsonLocalStorageObj = JSON.stringify({
-                        Returned_schedule_id: id,
-                        Returned_reserved_spots: spots
-                    });
-                    $.ajax({
-                        url: "/Home/TicketsResult",
-                        type: "POST",
-                        data: { JsonLocalStorageObj: JsonLocalStorageObj }
-                    });
-                    window.location.href = '@Url.Action("Reservation", "Home")';
+                if (tickets_amount == 0) {
+                    window.alert("Please choose at least one ticket.");
+                } else {
+                    const show = JSON.parse(localStorage.getItem("show"));
+                    if (show.Reserved_spots + tickets_amount > show.Capacity) {
+                        window.alert("We are sorry, but there is not enough spots :(");
+                    } else {
+                        show.Reserved_spots += tickets_amount;
+                        // wysylanie danych do kontrolera
+                        var id = show.Schedule_id;
+                        var spots = show.Reserved_spots;
+                        var JsonLocalStorageObj = JSON.stringify({
+                            Returned_schedule_id: id,
+                            Returned_reserved_spots: spots
+                        });
+                        $.ajax({
+                            url: "/Home/TicketsResult",
+                            type: "POST",
+                            data: { JsonLocalStorageObj: JsonLocalStorageObj }
+                        });
+                        window.location.href = '@Url.Action("Reservation", "Home")';
+                    }
                 }
             }
-
         }
     </script>
 </head>

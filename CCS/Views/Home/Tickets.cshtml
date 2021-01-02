@@ -5,11 +5,12 @@
 <head>
     <script type="text/javascript">
         function on_create() {
-            console.log(JSON.parse(localStorage.getItem("show")));
-            localStorage.setItem("five_seater", "0");
-            localStorage.setItem("two_seater", "0");
-            localStorage.setItem("seven_seater", "0");
-
+            var show = JSON.parse(localStorage.getItem("show"));
+            document.getElementById("five_price").innerHTML = show.price_per_spot;
+            var two_price = show.price_per_spot * 0.75;
+            document.getElementById("two_price").innerHTML = two_price;
+            var seven_price = show.price_per_spot * 1.33;
+            document.getElementById("seven_price").innerHTML = seven_price;
         }
         function change_tickets_amount(seats) {
             switch (seats) {
@@ -30,7 +31,12 @@
             }
         }
         function saveChoices() {
-            var tickets_amount = parseInt(localStorage.getItem("five_seater")) + parseInt(localStorage.getItem("two_seater")) + parseInt(localStorage.getItem("seven_seater"));
+            if (document.getElementById("five_seater").value == "not_selected"
+                || document.getElementById("two_seater").value == "not_selected"
+                || document.getElementById("seven_seater").value == "not_selected") {
+                window.alert("Please choose the amount of all types of tickets.");
+            } else {
+                var tickets_amount = parseInt(localStorage.getItem("five_seater")) + parseInt(localStorage.getItem("two_seater")) + parseInt(localStorage.getItem("seven_seater"));
             const show = JSON.parse(localStorage.getItem("show"));
             if (show.reserved_spots + tickets_amount > show.capacity) window.alert("We are sorry, but there is not enough spots :(");
             else {
@@ -38,6 +44,8 @@
                 // tu trzeba zmienic capacity tego show w schedulu w bazie danych
                 window.location.href = '@Url.Action("Reservation", "Home")';
             }
+            }
+
         }
     </script>
 </head>
@@ -46,6 +54,7 @@
 
     <div class="col-md">
         <select id="five_seater" onchange="change_tickets_amount(5)">
+            <option value="not_selected" selected hidden> </option>
             <option value="0"> 0 </option>
             <option value="1"> 1 </option>
             <option value="2"> 2 </option>
@@ -54,11 +63,12 @@
             <option value="5"> 5 </option>
             <option value="6"> 6 </option>
         </select>
-        <a style="font-size:medium">5-seater car&emsp;&emsp;&emsp;&emsp;&emsp;PLN 20.00</a>
+        <a style="font-size:medium">5-seater car&emsp;&ensp;&ensp;&emsp;&emsp;&emsp;PLN <b id="five_price"></b></a>
     </div>
     <br />
     <div class="col-md">
         <select id="two_seater" onchange="change_tickets_amount(2)">
+            <option value="not_selected" selected hidden> </option>
             <option value="0"> 0 </option>
             <option value="1"> 1 </option>
             <option value="2"> 2 </option>
@@ -67,11 +77,12 @@
             <option value="5"> 5 </option>
             <option value="6"> 6 </option>
         </select>
-        <a style="font-size:medium">2-seater car&emsp;&ensp;&ensp;&emsp;&emsp;&emsp;PLN 10.00</a>
+        <a style="font-size:medium">2-seater car&emsp;&ensp;&ensp;&emsp;&emsp;&emsp;PLN <b id="two_price"></b></a>
     </div>
     <br />
     <div class="col-md">
         <select id="seven_seater" onchange="change_tickets_amount(7)">
+            <option value="not_selected" selected hidden> </option>
             <option value="0"> 0 </option>
             <option value="1"> 1 </option>
             <option value="2"> 2 </option>
@@ -80,7 +91,7 @@
             <option value="5"> 5 </option>
             <option value="6"> 6 </option>
         </select>
-        <a style="font-size:medium">7-seater car&emsp;&ensp;&emsp;&emsp;&emsp;&emsp;PLN 25.00</a>
+        <a style="font-size:medium">7-seater car&emsp;&ensp;&ensp;&emsp;&emsp;&emsp;PLN <b id="seven_price"></b></a>
     </div>
     <div class="float-right">
         <input type="button" value="Next" class="btn-dark" style="font-size:large; background-size:contain"

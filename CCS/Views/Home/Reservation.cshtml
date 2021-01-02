@@ -42,10 +42,22 @@
                     break;
             }
             document.getElementById("zone").innerHTML = show.parking_zone;
-            // trzeba jeszcze dodac rodzaje biletow i calkowita cene
+            if (localStorage.getItem("five_seater") != "0") {
+                document.getElementById("five_seater_tickets").innerHTML = localStorage.getItem("five_seater") + "x 5-seater car spot" + "<br />";
+            }
+            if (localStorage.getItem("two_seater") != "0") {
+                document.getElementById("two_seater_tickets").innerHTML = localStorage.getItem("two_seater") + "x 2-seater car spot" + "<br />";
+            }
+            if (localStorage.getItem("seven_seater") != "0") {
+                document.getElementById("seven_seater_tickets").innerHTML = localStorage.getItem("seven_seater") + "x 7-seater car spot" + "<br />";
+            }
+           var total_cost = (parseInt(localStorage.getItem("five_seater")) * show.price_per_spot)
+                + (parseInt(localStorage.getItem("two_seater")) * show.price_per_spot * 0.75)
+                + parseInt(localStorage.getItem("seven_seater")) * show.price_per_spot * 1.25;
+            document.getElementById("cost").innerHTML = "PLN " + total_cost;
         }
         function submit_reservation() {
-            // tu trzeba dodac stworzyc nowa rezerwacje i dodac ja do bazy danych
+            // tu trzeba stworzyc nowa rezerwacje i dodac ja do bazy danych
             window.location.href = '@Url.Action("Logout", "Home")';
         }
     </script>
@@ -61,8 +73,11 @@
         Movie title: <b id="title"></b><br />
         Reservation date: <b id="date"></b><br />
         Parking zone: <b id="zone"></b><br />
-        Tickets: <br />
-        Total cost: <br />
+        Tickets:<br />
+        <b id="five_seater_tickets"></b>
+        <b id="two_seater_tickets"></b>
+        <b id="seven_seater_tickets"></b>
+        Total cost: <b id="cost"></b><br />
     </p>
     <br />
     <div class="float-right">

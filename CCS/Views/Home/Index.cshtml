@@ -6,71 +6,107 @@
 
 <html>
 <head>
-    <script type="text/javascript">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function openDay(evt, dayOfWeek) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(dayOfWeek).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
         function on_click(_link) {
             localStorage.setItem("link", _link);
             window.location.href = '@Url.Action("Trailer", "Home")';
         }
-         function on_chosen_movie(_show) {
-             localStorage.setItem("show", JSON.stringify(_show));
+        function on_chosen_movie(_show) {
+            localStorage.setItem("show", JSON.stringify(_show));
             window.location.href = '@Url.Action("Tickets", "Home")';
         }
     </script>
-</head>
+    <style>
+        body {
+            font-family: Arial;
+        }
 
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+            /* Style the buttons inside the tab */
+            .tab button {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                    background-color: #ddd;
+                }
+
+                /* Create an active/current tablink class */
+                .tab button.active {
+                    background-color: #ccc;
+                }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+    </style>
+</head>
 <body>
     <div class="text-center">
         <h1 class="display-4">Movies List</h1>
+    </div>
+    <div class="tab">
+        <button class="tablinks" onclick="openDay(event, 'Monday')">Monday</button>
+        <button class="tablinks" onclick="openDay(event, 'Tuesday')">Tuesday</button>
+        <button class="tablinks" onclick="openDay(event, 'Wednesday')">Wednesday</button>
+        <button class="tablinks" onclick="openDay(event, 'Thursday')">Thursday</button>
+        <button class="tablinks" onclick="openDay(event, 'Friday')">Friday</button>
+        <button class="tablinks" onclick="openDay(event, 'Saturday')">Saturday</button>
+        <button class="tablinks" onclick="openDay(event, 'Sunday')">Sunday</button>
+    </div>
 
-    </div>
-    <div class="row">
-        <div class="col-md">
-            <input type="button" value="Monday" class="btn-dark" />
-        </div>
-        <div class="col-md">
-            <input type="button" value="Thuesday" class="btn-dark" />
-        </div>
-        <div class="col-md">
-            <input type="button" value="Wednesday" class="btn-dark" />
-        </div>
-        <div class="col-md">
-            <input type="button" value="Thursday" class="btn-dark" />
-        </div>
-        <div class="col-md">
-            <input type="button" value="Friday" class="btn-dark" />
-        </div>
-        <div class="col-md">
-            <input type="button" value="Saturday" class="btn-dark" />
-        </div>
-        <div class="col-md">
-            <input type="button" value="Sunday" class="btn-dark" />
-        </div>
-    </div>
-    <div class="text-center">
-        <p><br> Movies played on the chosen day </p>
-    </div>
-    <ul class="list-group">
-        @foreach (var show in Model.Shows)
-        {
-            <li class="list-group-item">
-                <img class="float-left" src="~/Content/photos/inception.jpg" style="height: 200px;" />
-                <p>
-                    <h1>&emsp; @show.Title</h1>
-                    <a>Screening hour: @show.Movie_hour</a><br />
-                    <a>Genre: @show.Genre</a><br />
-                    <a>
-                        @*&emsp;*@
-                        @show.Description
-                    </a><br />
-                </p>
-                <div class="float-right">
-                    <input type="button" value="Watch Trailer" class="btn-outline-dark"
-                           onclick="on_click('@show.Trailer')" />
-                </div>
-                <br />
-                <br />
-                <input type="button" value="Reserve tickets" class="btn-outline-dark"
-                       onclick="on_chosen_movie({
+    <div id="Monday" class="tabcontent">
+        <ul class="list-group">
+            @foreach (var show in Model.Shows)
+            {
+                if (show.Movie_date == 1)
+                {
+                    <li class="list-group-item">
+                        <img class="float-left" src="~/Content/photos/inception.jpg" style="height: 100px;" />
+                        <p>
+                            <h2>&emsp; @show.Title</h2>
+                            <a>Screening hour: @show.Movie_hour</a><br />
+                            <a>Genre: @show.Genre</a><br />
+                            <a>@show.Description</a><br />
+                        </p>
+                        <div class="float-right">
+                            <input type="button" value="Watch Trailer" class="btn-outline-dark"
+                                   onclick="on_click('@show.Trailer')" />
+                        </div><br />
+                        <input type="button" value="Reserve tickets" class="btn-outline-dark"
+                               onclick="on_chosen_movie({
                            schedule_id: @show.Schedule_id,
                            movie_date: @show.Movie_date,
                            movie_hour: '@show.Movie_hour',
@@ -79,8 +115,215 @@
                            reserved_spots: @show.Reserved_spots,
                            title: '@show.Title',
                            price_per_seat: @show.Price_per_spot})" />
-            </li>
-        }
-    </ul>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+
+    <div id="Tuesday" class="tabcontent">
+        <ul class="list-group">
+            @foreach (var show in Model.Shows)
+            {
+                if (show.Movie_date == 2)
+                {
+                    <li class="list-group-item">
+                        <img class="float-left" src="~/Content/photos/inception.jpg" style="height: 100px;" />
+                        <p>
+                            <h2>&emsp; @show.Title</h2>
+                            <a>Screening hour: @show.Movie_hour</a><br />
+                            <a>Genre: @show.Genre</a><br />
+                            <a>@show.Description</a><br />
+                        </p>
+                        <div class="float-right">
+                            <input type="button" value="Watch Trailer" class="btn-outline-dark"
+                                   onclick="on_click('@show.Trailer')" />
+                        </div><br />
+                        <input type="button" value="Reserve tickets" class="btn-outline-dark"
+                               onclick="on_chosen_movie({
+                           schedule_id: @show.Schedule_id,
+                           movie_date: @show.Movie_date,
+                           movie_hour: '@show.Movie_hour',
+                           parking_zone: '@show.Parking_zone',
+                           capacity: @show.Capacity,
+                           reserved_spots: @show.Reserved_spots,
+                           title: '@show.Title',
+                           price_per_seat: @show.Price_per_spot})" />
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+
+    <div id="Wednesday" class="tabcontent">
+        <ul class="list-group">
+            @foreach (var show in Model.Shows)
+            {
+                if (show.Movie_date == 3)
+                {
+                    <li class="list-group-item">
+                        <img class="float-left" src="~/Content/photos/inception.jpg" style="height: 100px;" />
+                        <p>
+                            <h2>&emsp; @show.Title</h2>
+                            <a>Screening hour: @show.Movie_hour</a><br />
+                            <a>Genre: @show.Genre</a><br />
+                            <a>@show.Description</a><br />
+                        </p>
+                        <div class="float-right">
+                            <input type="button" value="Watch Trailer" class="btn-outline-dark"
+                                   onclick="on_click('@show.Trailer')" />
+                        </div><br />
+                        <input type="button" value="Reserve tickets" class="btn-outline-dark"
+                               onclick="on_chosen_movie({
+                           schedule_id: @show.Schedule_id,
+                           movie_date: @show.Movie_date,
+                           movie_hour: '@show.Movie_hour',
+                           parking_zone: '@show.Parking_zone',
+                           capacity: @show.Capacity,
+                           reserved_spots: @show.Reserved_spots,
+                           title: '@show.Title',
+                           price_per_seat: @show.Price_per_spot})" />
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+
+    <div id="Thursday" class="tabcontent">
+        <ul class="list-group">
+            @foreach (var show in Model.Shows)
+            {
+                if (show.Movie_date == 4)
+                {
+                    <li class="list-group-item">
+                        <img class="float-left" src="~/Content/photos/inception.jpg" style="height: 100px;" />
+                        <p>
+                            <h2>&emsp; @show.Title</h2>
+                            <a>Screening hour: @show.Movie_hour</a><br />
+                            <a>Genre: @show.Genre</a><br />
+                            <a>@show.Description</a><br />
+                        </p>
+                        <div class="float-right">
+                            <input type="button" value="Watch Trailer" class="btn-outline-dark"
+                                   onclick="on_click('@show.Trailer')" />
+                        </div><br />
+                        <input type="button" value="Reserve tickets" class="btn-outline-dark"
+                               onclick="on_chosen_movie({
+                           schedule_id: @show.Schedule_id,
+                           movie_date: @show.Movie_date,
+                           movie_hour: '@show.Movie_hour',
+                           parking_zone: '@show.Parking_zone',
+                           capacity: @show.Capacity,
+                           reserved_spots: @show.Reserved_spots,
+                           title: '@show.Title',
+                           price_per_seat: @show.Price_per_spot})" />
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+
+    <div id="Friday" class="tabcontent">
+        <ul class="list-group">
+            @foreach (var show in Model.Shows)
+            {
+                if (show.Movie_date == 5)
+                {
+                    <li class="list-group-item">
+                        <img class="float-left" src="~/Content/photos/inception.jpg" style="height: 100px;" />
+                        <p>
+                            <h2>&emsp; @show.Title</h2>
+                            <a>Screening hour: @show.Movie_hour</a><br />
+                            <a>Genre: @show.Genre</a><br />
+                            <a>@show.Description</a><br />
+                        </p>
+                        <div class="float-right">
+                            <input type="button" value="Watch Trailer" class="btn-outline-dark"
+                                   onclick="on_click('@show.Trailer')" />
+                        </div><br />
+                        <input type="button" value="Reserve tickets" class="btn-outline-dark"
+                               onclick="on_chosen_movie({
+                           schedule_id: @show.Schedule_id,
+                           movie_date: @show.Movie_date,
+                           movie_hour: '@show.Movie_hour',
+                           parking_zone: '@show.Parking_zone',
+                           capacity: @show.Capacity,
+                           reserved_spots: @show.Reserved_spots,
+                           title: '@show.Title',
+                           price_per_seat: @show.Price_per_spot})" />
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+
+    <div id="Saturday" class="tabcontent">
+        <ul class="list-group">
+            @foreach (var show in Model.Shows)
+            {
+                if (show.Movie_date == 6)
+                {
+                    <li class="list-group-item">
+                        <img class="float-left" src="~/Content/photos/inception.jpg" style="height: 100px;" />
+                        <p>
+                            <h2>&emsp; @show.Title</h2>
+                            <a>Screening hour: @show.Movie_hour</a><br />
+                            <a>Genre: @show.Genre</a><br />
+                            <a>@show.Description</a><br />
+                        </p>
+                        <div class="float-right">
+                            <input type="button" value="Watch Trailer" class="btn-outline-dark"
+                                   onclick="on_click('@show.Trailer')" />
+                        </div><br />
+                        <input type="button" value="Reserve tickets" class="btn-outline-dark"
+                               onclick="on_chosen_movie({
+                           schedule_id: @show.Schedule_id,
+                           movie_date: @show.Movie_date,
+                           movie_hour: '@show.Movie_hour',
+                           parking_zone: '@show.Parking_zone',
+                           capacity: @show.Capacity,
+                           reserved_spots: @show.Reserved_spots,
+                           title: '@show.Title',
+                           price_per_seat: @show.Price_per_spot})" />
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+
+    <div id="Sunday" class="tabcontent">
+        <ul class="list-group">
+            @foreach (var show in Model.Shows)
+            {
+                if (show.Movie_date == 7)
+                {
+                    <li class="list-group-item">
+                        <img class="float-left" src="~/Content/photos/inception.jpg" style="height: 100px;" />
+                        <p>
+                            <h2>&emsp; @show.Title</h2>
+                            <a>Screening hour: @show.Movie_hour</a><br />
+                            <a>Genre: @show.Genre</a><br />
+                            <a>@show.Description</a><br />
+                        </p>
+                        <div class="float-right">
+                            <input type="button" value="Watch Trailer" class="btn-outline-dark"
+                                   onclick="on_click('@show.Trailer')" />
+                        </div><br />
+                        <input type="button" value="Reserve tickets" class="btn-outline-dark"
+                               onclick="on_chosen_movie({
+                           schedule_id: @show.Schedule_id,
+                           movie_date: @show.Movie_date,
+                           movie_hour: '@show.Movie_hour',
+                           parking_zone: '@show.Parking_zone',
+                           capacity: @show.Capacity,
+                           reserved_spots: @show.Reserved_spots,
+                           title: '@show.Title',
+                           price_per_seat: @show.Price_per_spot})" />
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+
 </body>
 </html>

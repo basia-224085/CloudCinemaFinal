@@ -1,13 +1,8 @@
-﻿
-using CCS.DataRepository;
+﻿using CCS.DataRepository;
 using CCS.Models;
 using CCS.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Azure.Storage.Blobs;
 
 namespace CCS.Controllers
 {
@@ -16,12 +11,9 @@ namespace CCS.Controllers
         private Repository repo = new Repository();
         public ActionResult Index()
         {
-            // Create a BlobServiceClient object which will be used to create a container client
-            //BlobServiceClient blobServiceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=moviesposters;AccountKey=/W6OWyYwXeMGqpaweWBjTBKTyCrkqu+Pz4IkQJscLAz9iLxldCDZgV+OXh4YjjyL1Xn1fwHHvwl6tgER4euF3w==;BlobEndpoint=https://moviesposters.blob.core.windows.net/;TableEndpoint=https://moviesposters.table.core.windows.net/;QueueEndpoint=https://moviesposters.queue.core.windows.net/;FileEndpoint=https://moviesposters.file.core.windows.net/");
-
-            List<Movies> movies = repo.getMoviesOfTheDay(1);
-            var movieListViewModel = new MovieListViewModel(movies);
-            return View(movieListViewModel);
+            List<Show> shows = repo.getShows();
+            var homeViewModel = new HomeViewModel(shows);
+            return View(homeViewModel);
         }
         public ActionResult Trailer()
         {
@@ -38,8 +30,6 @@ namespace CCS.Controllers
         }
         public ActionResult Seats()
         {
-            var str = "test";
-            ViewBag.test = str;
             return View();
         }
         public ActionResult Reservation()

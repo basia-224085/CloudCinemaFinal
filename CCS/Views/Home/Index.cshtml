@@ -2,7 +2,7 @@
     ViewBag.Title = "Home Page";
 
 }
-@model CCS.ViewModels.MovieListViewModel
+@model CCS.ViewModels.HomeViewModel
 
 <html>
 <head>
@@ -11,8 +11,8 @@
             localStorage.setItem("link", _link);
             window.location.href = '@Url.Action("Trailer", "Home")';
         }
-         function on_chosen_movie(_movie) {
-             localStorage.setItem("movie", JSON.stringify(_movie));
+         function on_chosen_movie(_show) {
+             localStorage.setItem("show", JSON.stringify(_show));
             window.location.href = '@Url.Action("Tickets", "Home")';
         }
     </script>
@@ -50,41 +50,35 @@
         <p><br> Movies played on the chosen day </p>
     </div>
     <ul class="list-group">
-        @foreach (var movie in Model.Movies)
+        @foreach (var show in Model.Shows)
         {
             <li class="list-group-item">
-                <img class="float-left" src="~/Content/photos/inception.jpg" style="height: 300px;" />
+                <img class="float-left" src="~/Content/photos/inception.jpg" style="height: 200px;" />
                 <p>
-                    <h1>&emsp; @movie.title</h1>
+                    <h1>&emsp; @show.Title</h1>
+                    <a>Screening hour: @show.Movie_hour</a><br />
+                    <a>Genre: @show.Genre</a><br />
                     <a>
-                        &emsp;
-                        @movie.description
+                        @*&emsp;*@
+                        @show.Description
                     </a><br />
                 </p>
                 <div class="float-right">
                     <input type="button" value="Watch Trailer" class="btn-outline-dark"
-                           onclick="on_click('@movie.trailer')" />     
-
+                           onclick="on_click('@show.Trailer')" />
                 </div>
                 <br />
                 <br />
-                <div class="row">
-                    <div class="col-md">
-                        <input type="button" value="12:00" class="btn-outline-dark"
-                               onclick="on_chosen_movie()" />
-                    </div>
-                    <div class="col-md">
-                        <input type="button" value="14:30" class="btn-outline-dark" disabled />
-                    </div>
-                    <div class="col-md">
-                        <input type="button" value="18:00" class="btn-outline-dark"
-                               onclick="on_chosen_movie()"/>
-                    </div>
-                    <div class="col-md">
-                        <input type="button" value="21:30" class="btn-outline-dark"
-                               onclick="on_chosen_movie()"/>
-                    </div>
-                </div>
+                <input type="button" value="Reserve tickets" class="btn-outline-dark"
+                       onclick="on_chosen_movie({
+                           schedule_id: @show.Schedule_id,
+                           movie_date: @show.Movie_date,
+                           movie_hour: '@show.Movie_hour',
+                           parking_zone: '@show.Parking_zone',
+                           capacity: @show.Capacity,
+                           reserved_spots: @show.Reserved_spots,
+                           title: '@show.Title',
+                           price_per_seat: @show.Price_per_spot})" />
             </li>
         }
     </ul>

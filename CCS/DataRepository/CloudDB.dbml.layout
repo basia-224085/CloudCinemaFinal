@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.125, 8.5" name="CloudDB">
+  <DataContextMoniker Name="/CloudDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="60cd9c76-e512-4745-ae9e-5100981808e2" absoluteBounds="10.75, 1.625, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/CloudDBDataContext/Schedule" />
+      <nestedChildShapes>
+        <elementListCompartment Id="38eec3fc-d3df-468f-9980-380915f45c8d" absoluteBounds="10.765, 2.085, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c3635157-0d98-4fd7-b1ee-8d8300649c13" absoluteBounds="4.5, 1.375, 2, 3.1170068359375014">
+      <DataClassMoniker Name="/CloudDBDataContext/AspNetUsers" />
+      <nestedChildShapes>
+        <elementListCompartment Id="026d7fc2-2829-4a76-a6bb-0cd67f20da26" absoluteBounds="4.515, 1.835, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2cbe57c8-3e0b-4f0f-9a92-7afe2127f165" absoluteBounds="7.75, 5.25, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/CloudDBDataContext/Genre" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4d216f9e-4f67-44be-bcbe-a42eaad8f2a2" absoluteBounds="7.7650000000000006, 5.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="72e79e58-6b94-439d-b2c9-89e8e76c1604" absoluteBounds="10.875, 5, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/CloudDBDataContext/Movies" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0abb1773-1155-4c3a-a485-33d0256248ca" absoluteBounds="10.89, 5.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8811a6be-f3bc-49f4-8444-5df6e4f38d55" absoluteBounds="7.75, 1.875, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/CloudDBDataContext/Reservations" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e0680a8f-732b-4d2f-9e0f-b5fd73f16f45" absoluteBounds="7.7650000000000006, 2.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(11.8125 : 5); (11.8125 : 3.78049967447917)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CloudDBDataContext/Movies/Movies_Schedule" />
+      <nodes>
+        <classShapeMoniker Id="72e79e58-6b94-439d-b2c9-89e8e76c1604" />
+        <classShapeMoniker Id="60cd9c76-e512-4745-ae9e-5100981808e2" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(9.75 : 5.84699625651042); (10.875 : 5.84699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CloudDBDataContext/Genre/Genre_Movies" />
+      <nodes>
+        <classShapeMoniker Id="2cbe57c8-3e0b-4f0f-9a92-7afe2127f165" />
+        <classShapeMoniker Id="72e79e58-6b94-439d-b2c9-89e8e76c1604" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(10.75 : 2.56814697265625); (9.75 : 2.56814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CloudDBDataContext/Schedule/Schedule_Reservations" />
+      <nodes>
+        <classShapeMoniker Id="60cd9c76-e512-4745-ae9e-5100981808e2" />
+        <classShapeMoniker Id="8811a6be-f3bc-49f4-8444-5df6e4f38d55" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.5 : 2.56814697265625); (7.75 : 2.56814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CloudDBDataContext/AspNetUsers/AspNetUsers_Reservations" />
+      <nodes>
+        <classShapeMoniker Id="c3635157-0d98-4fd7-b1ee-8d8300649c13" />
+        <classShapeMoniker Id="8811a6be-f3bc-49f4-8444-5df6e4f38d55" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

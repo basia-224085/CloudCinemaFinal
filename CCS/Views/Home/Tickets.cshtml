@@ -1,14 +1,20 @@
 ﻿@{
     ViewData["Title"] = "Tickets Page";
 }
-@functions {
-
-}
 <html>
 <head>
     <script type="text/javascript">
         function on_create() {
             console.log(JSON.parse(localStorage.getItem("show")));
+        }
+        function saveChoices(tickets_amount) {
+            const show = JSON.parse(localStorage.getItem("show"));
+            if (show.reserved_spots + tickets_amount > show.capacity) window.alert("We are sorry, but there is not enough spots :(");
+            else {
+                show.capacity += tickets_amount; // nie wiem czy to sie wgl cos tu dzieje ale w sumie to nie musi
+                // tu trzeba zmienic capacity tego show w schedulu w bazie danych
+                window.location.href = '@Url.Action("Reservation", "Home")';
+            }
         }
     </script>
 </head>
@@ -26,7 +32,7 @@
             <option value="5"> 5 </option>
             <option value="6"> 6 </option>
         </select>
-        <a style="font-size:medium">Normal&emsp;&emsp;&emsp;&emsp;&emsp;PLN 20.00</a>
+        <a style="font-size:medium">5-seater car&emsp;&emsp;&emsp;&emsp;&emsp;PLN 20.00</a>
     </div>
     <br />
     <div class="col-md">
@@ -39,20 +45,7 @@
             <option value="5"> 5 </option>
             <option value="6"> 6 </option>
         </select>
-        <a style="font-size:medium">Student&emsp;&ensp;&ensp;&emsp;&emsp;&emsp;PLN 10.00</a>
-    </div>
-    <br />
-    <div class="col-md">
-        <select id="child">
-            <option value="0"> 0 </option>
-            <option value="1"> 1 </option>
-            <option value="2"> 2 </option>
-            <option value="3"> 3 </option>
-            <option value="4"> 4 </option>
-            <option value="5"> 5 </option>
-            <option value="6"> 6 </option>
-        </select>
-        <a style="font-size:medium">Child&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;PLN 15.00</a>
+        <a style="font-size:medium">2-seater car&emsp;&ensp;&ensp;&emsp;&emsp;&emsp;PLN 10.00</a>
     </div>
     <br />
     <div class="col-md">
@@ -65,11 +58,11 @@
             <option value="5"> 5 </option>
             <option value="6"> 6 </option>
         </select>
-        <a style="font-size:medium">Senior&emsp;&ensp;&emsp;&emsp;&emsp;&emsp;PLN 18.00</a>
+        <a style="font-size:medium">7-seater car&emsp;&ensp;&emsp;&emsp;&emsp;&emsp;PLN 25.00</a>
     </div>
     <div class="float-right">
         <input type="button" value="Next" class="btn-dark" style="font-size:large; background-size:contain"
-               onclick="saveChoices()" />
+               onclick="saveChoices(1)" />
     </div>
 
 </body>

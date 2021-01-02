@@ -1,22 +1,73 @@
 ﻿@{
     ViewData["Title"] = "Reservation Page";
 }
-<div class="text-center">
-    <h1 class="display-4">
-        Your reservation
-    </h1>
-    <p>Please check if all information is correct before submitting the reservation.</p>
-</div>
-<p>
-    Movie title: Inception<br />
-    Reservation date: 2020-12-01  13:00<br />
-    User email: user123@gmail.com<br />
-    Seats: 12A, 13A, 14A, 15A<br />
-    Tickets: 1x Normal, 2x Child, 1x Senior<br />
-    Total cost: PLN 68.50<br />
-</p>
-<br />
-<div class="float-right">
-    <input type="button" value="Submit reservation" class="btn-dark" style="font-size:large; background-size:contain"
-           onclick="window.location.href='@Url.Action("Logout", "Home")';" />
-</div>
+<html>
+<head>
+    <script>
+        function on_create() {
+            const show = JSON.parse(localStorage.getItem("show"));
+            console.log(show);
+
+            document.getElementById("title").innerHTML = show.title;
+            switch (show.movie_date) {
+                case 1: {
+                    document.getElementById("date").innerHTML = "Monday, " + show.movie_hour;
+                    break;
+                }
+                case 2: {
+                    document.getElementById("date").innerHTML = "Tuesday, " + show.movie_hour;
+                    break;
+                }
+                case 3: {
+                    document.getElementById("date").innerHTML = "Wednesday, " + show.movie_hour;
+                    break;
+                }
+                case 4: {
+                    document.getElementById("date").innerHTML = "Thursday, " + show.movie_hour;
+                    break;
+                }
+                case 5: {
+                    document.getElementById("date").innerHTML = "Friday, " + show.movie_hour;
+                    break;
+                }
+                case 6: {
+                    document.getElementById("date").innerHTML = "Saturday, " + show.movie_hour;
+                    break;
+                }
+                case 7: {
+                    document.getElementById("date").innerHTML = "Sunday, " + show.movie_hour;
+                    break;
+                }
+                default:
+                    break;
+            }
+            document.getElementById("zone").innerHTML = show.parking_zone;
+            // trzeba jeszcze dodac rodzaje biletow i calkowita cene
+        }
+        function submit_reservation() {
+            // tu trzeba dodac stworzyc nowa rezerwacje i dodac ja do bazy danych
+            window.location.href = '@Url.Action("Logout", "Home")';
+        }
+    </script>
+</head>
+<body onload="on_create()">
+    <div class="text-center">
+        <h1 class="display-4">
+            Your reservation
+        </h1>
+        <p>Please check if all information are correct before submitting the reservation.</p>
+    </div>
+    <p>
+        Movie title: <b id="title"></b><br />
+        Reservation date: <b id="date"></b><br />
+        Parking zone: <b id="zone"></b><br />
+        Tickets: <br />
+        Total cost: <br />
+    </p>
+    <br />
+    <div class="float-right">
+        <input type="button" value="Submit reservation" class="btn-dark" style="font-size:large; background-size:contain"
+               onclick="submit_reservation()" />
+    </div>
+</body>
+</html>

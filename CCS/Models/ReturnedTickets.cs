@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace CCS.Models
+{
+    public class ReturnedTickets
+    {
+        public int Returned_schedule_id { get; set; }
+        public int Returned_reserved_spots { get; set; }
+    }
+}

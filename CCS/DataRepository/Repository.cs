@@ -56,5 +56,11 @@ namespace CCS.DataRepository
             }
             return shows;
         }
+        public  void updateReservedSpots(int schedule_id, int new_reserved_spots)
+        {
+            Schedule schedule = db.Schedule.Where(p => p.schedule_id == schedule_id).First();
+            schedule.reserved_spots = new_reserved_spots;
+            db.SubmitChanges();
+        }
     }
 }

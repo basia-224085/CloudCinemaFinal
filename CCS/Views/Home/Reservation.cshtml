@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Reservation Page";
 }
+@model CCS.ViewModels.ReturnedViewModel
 <html>
 <head>
     <script>
@@ -8,40 +9,40 @@
             const show = JSON.parse(localStorage.getItem("show"));
             console.log(show);
 
-            document.getElementById("title").innerHTML = show.title;
-            switch (show.movie_date) {
+            document.getElementById("title").innerHTML = show.Title;
+            switch (show.Movie_date) {
                 case 1: {
-                    document.getElementById("date").innerHTML = "Monday, " + show.movie_hour;
+                    document.getElementById("date").innerHTML = "Monday, " + show.Movie_hour;
                     break;
                 }
                 case 2: {
-                    document.getElementById("date").innerHTML = "Tuesday, " + show.movie_hour;
+                    document.getElementById("date").innerHTML = "Tuesday, " + show.Movie_hour;
                     break;
                 }
                 case 3: {
-                    document.getElementById("date").innerHTML = "Wednesday, " + show.movie_hour;
+                    document.getElementById("date").innerHTML = "Wednesday, " + show.Movie_hour;
                     break;
                 }
                 case 4: {
-                    document.getElementById("date").innerHTML = "Thursday, " + show.movie_hour;
+                    document.getElementById("date").innerHTML = "Thursday, " + show.Movie_hour;
                     break;
                 }
                 case 5: {
-                    document.getElementById("date").innerHTML = "Friday, " + show.movie_hour;
+                    document.getElementById("date").innerHTML = "Friday, " + show.Movie_hour;
                     break;
                 }
                 case 6: {
-                    document.getElementById("date").innerHTML = "Saturday, " + show.movie_hour;
+                    document.getElementById("date").innerHTML = "Saturday, " + show.Movie_hour;
                     break;
                 }
                 case 7: {
-                    document.getElementById("date").innerHTML = "Sunday, " + show.movie_hour;
+                    document.getElementById("date").innerHTML = "Sunday, " + show.Movie_hour;
                     break;
                 }
                 default:
                     break;
             }
-            document.getElementById("zone").innerHTML = show.parking_zone;
+            document.getElementById("zone").innerHTML = show.Parking_zone;
             if (localStorage.getItem("five_seater") != "0") {
                 document.getElementById("five_seater_tickets").innerHTML = localStorage.getItem("five_seater") + "x 5-seater car spot" + "<br />";
             }
@@ -51,38 +52,61 @@
             if (localStorage.getItem("seven_seater") != "0") {
                 document.getElementById("seven_seater_tickets").innerHTML = localStorage.getItem("seven_seater") + "x 7-seater car spot" + "<br />";
             }
-           var total_cost = (parseInt(localStorage.getItem("five_seater")) * show.price_per_spot)
-                + (parseInt(localStorage.getItem("two_seater")) * show.price_per_spot * 0.75)
-                + parseInt(localStorage.getItem("seven_seater")) * show.price_per_spot * 1.25;
+           var total_cost = (parseInt(localStorage.getItem("five_seater")) * show.Price_per_spot)
+                + (parseInt(localStorage.getItem("two_seater")) * show.Price_per_spot * 0.75)
+                + parseInt(localStorage.getItem("seven_seater")) * show.Price_per_spot * 1.25;
             document.getElementById("cost").innerHTML = "PLN " + total_cost;
         }
         function submit_reservation() {
+
+            //var JsonLocalStorageObj = JSON.stringify(localStorage.getItem("show"));
+            const show = JSON.parse(localStorage.getItem("show"));
+            var JsonLocalStorageObj = JSON.stringify(show.Schedule_id);
+                //var test = ["test1", "test2", "test3"];
+
+                $.ajax({
+                    url: "/Home/ReservationResult",
+                    type: "POST",
+                    data: { JsonLocalStorageObj: JsonLocalStorageObj },
+                    success: function (result) {
+                        alert(result);
+                    }
+                });
+            localStorage.clear();
             // tu trzeba stworzyc nowa rezerwacje i dodac ja do bazy danych
-            window.location.href = '@Url.Action("Logout", "Home")';
+           // window.location.href = '@Url.Action("Logout", "Home")';
         }
     </script>
 </head>
 <body onload="on_create()">
-    <div class="text-center">
-        <h1 class="display-4">
-            Your reservation
-        </h1>
-        <p>Please check if all information are correct before submitting the reservation.</p>
-    </div>
-    <p>
-        Movie title: <b id="title"></b><br />
-        Reservation date: <b id="date"></b><br />
-        Parking zone: <b id="zone"></b><br />
-        Tickets:<br />
-        <b id="five_seater_tickets"></b>
-        <b id="two_seater_tickets"></b>
-        <b id="seven_seater_tickets"></b>
-        Total cost: <b id="cost"></b><br />
-    </p>
-    <br />
-    <div class="float-right">
-        <input type="button" value="Submit reservation" class="btn-dark" style="font-size:large; background-size:contain"
-               onclick="submit_reservation()" />
-    </div>
+    @using (Html.BeginForm())
+    {
+        <div class="text-center">
+            <h1 class="display-4">
+                Your reservation
+            </h1>
+            <p>Please check if all information are correct before submitting the reservation.</p>
+        </div>
+        <p>
+            Movie title: <b id="title"></b><br />
+            Reservation date: <b id="date"></b><br />
+            Parking zone: <b id="zone"></b><br />
+            Tickets:<br />
+            <b id="five_seater_tickets"></b>
+            <b id="two_seater_tickets"></b>
+            <b id="seven_seater_tickets"></b>
+            Total cost: <b id="cost"></b><br />
+        </p>
+        <br />
+
+        <input type="text" name="returned" />
+
+        <input type="submit" value="Submit reservation" />
+
+        <div class="float-right">
+            <input type="button" value="Submit reservation" class="btn-dark" style="font-size:large; background-size:contain"
+                   onclick="submit_reservation()" />
+        </div>
+    }
 </body>
 </html>

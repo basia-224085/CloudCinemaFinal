@@ -6,12 +6,35 @@
     <script type="text/javascript">
         function on_create() {
             console.log(JSON.parse(localStorage.getItem("show")));
+            localStorage.setItem("five_seater", "0");
+            localStorage.setItem("two_seater", "0");
+            localStorage.setItem("seven_seater", "0");
+
         }
-        function saveChoices(tickets_amount) {
+        function change_tickets_amount(seats) {
+            switch (seats) {
+                case 5: {
+                    localStorage.setItem("five_seater", document.getElementById("five_seater").value);
+                    break;
+                }
+                case 2: {
+                    localStorage.setItem("two_seater", document.getElementById("two_seater").value);
+                    break;
+                }
+                case 7: {
+                    localStorage.setItem("seven_seater", document.getElementById("seven_seater").value);
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+        function saveChoices() {
+            var tickets_amount = parseInt(localStorage.getItem("five_seater")) + parseInt(localStorage.getItem("two_seater")) + parseInt(localStorage.getItem("seven_seater"));
             const show = JSON.parse(localStorage.getItem("show"));
             if (show.reserved_spots + tickets_amount > show.capacity) window.alert("We are sorry, but there is not enough spots :(");
             else {
-                show.capacity += tickets_amount; // nie wiem czy to sie wgl cos tu dzieje ale w sumie to nie musi
+                show.reserved_spots += tickets_amount; // nie wiem czy to sie wgl cos tu dzieje ale w sumie to nie musi
                 // tu trzeba zmienic capacity tego show w schedulu w bazie danych
                 window.location.href = '@Url.Action("Reservation", "Home")';
             }
@@ -21,9 +44,8 @@
 <body onload="on_create()">
     <h1 display-4>Choose tickets:</h1>
 
-
     <div class="col-md">
-        <select id="normal">
+        <select id="five_seater" onchange="change_tickets_amount(5)">
             <option value="0"> 0 </option>
             <option value="1"> 1 </option>
             <option value="2"> 2 </option>
@@ -36,7 +58,7 @@
     </div>
     <br />
     <div class="col-md">
-        <select id="student">
+        <select id="two_seater" onchange="change_tickets_amount(2)">
             <option value="0"> 0 </option>
             <option value="1"> 1 </option>
             <option value="2"> 2 </option>
@@ -49,7 +71,7 @@
     </div>
     <br />
     <div class="col-md">
-        <select id="senior">
+        <select id="seven_seater" onchange="change_tickets_amount(7)">
             <option value="0"> 0 </option>
             <option value="1"> 1 </option>
             <option value="2"> 2 </option>
@@ -62,7 +84,7 @@
     </div>
     <div class="float-right">
         <input type="button" value="Next" class="btn-dark" style="font-size:large; background-size:contain"
-               onclick="saveChoices(1)" />
+               onclick="saveChoices()" />
     </div>
 
 </body>

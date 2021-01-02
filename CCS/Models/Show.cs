@@ -5,18 +5,6 @@ namespace CCS.Models
     {
         public Show(int schedule_id, int movie_date, string movie_hour, string parking_zone, int capacity, int reserved_spots, string genre, string title, string trailer, decimal price_per_spot, string description)
         {
-            /*"{"Schedule_id":12,
-             * "Movie_date":1,
-             * "Movie_hour":"20:00",
-             * "Parking_zone":"A",
-             * "Capacity":50,
-             * "Reserved_spots":5,
-             * "Genre":"drama",
-             * "Title":"Intouchables",
-             * "Trailer":"https://www.youtube.com/embed/34WIbmXkewU",
-             * "Price_per_spot":20,
-             * "Description":"After he becomes a quadriplegic from a paragliding accident,
-             * an aristocrat hires a young man from the projects to be his caregiver."}" */
             Schedule_id = schedule_id;
             Movie_date = movie_date;
             Movie_hour = movie_hour;

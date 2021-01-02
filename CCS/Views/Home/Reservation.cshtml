@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Reservation Page";
 }
-@model CCS.ViewModels.ReturnedViewModel
 <html>
 <head>
     <script>
@@ -59,22 +58,19 @@
         }
         function submit_reservation() {
 
-            //var JsonLocalStorageObj = JSON.stringify(localStorage.getItem("show"));
             const show = JSON.parse(localStorage.getItem("show"));
-            var JsonLocalStorageObj = JSON.stringify(show.Schedule_id);
-                //var test = ["test1", "test2", "test3"];
-
-                $.ajax({
-                    url: "/Home/ReservationResult",
-                    type: "POST",
-                    data: { JsonLocalStorageObj: JsonLocalStorageObj },
-                    success: function (result) {
-                        alert(result);
-                    }
-                });
-            localStorage.clear();
-            // tu trzeba stworzyc nowa rezerwacje i dodac ja do bazy danych
-           // window.location.href = '@Url.Action("Logout", "Home")';
+            var id = show.Schedule_id;
+            var user_email = "123@fer.pl"; // to nie wiem narazie skad wziac moze m.Email?
+            var JsonLocalStorageObj = JSON.stringify({
+                Returned_schedule_id: id,
+                Returned_user_email: user_email
+            });
+            $.ajax({
+                url: "/Home/ReservationResult",
+                type: "POST",
+                data: { JsonLocalStorageObj: JsonLocalStorageObj }
+            });
+            // window.location.href = '@Url.Action("Logout", "Home")';
         }
     </script>
 </head>

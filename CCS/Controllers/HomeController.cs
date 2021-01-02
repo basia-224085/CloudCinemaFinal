@@ -54,11 +54,9 @@ namespace CCS.Controllers
         [WebMethod]
         public ActionResult ReservationResult(string JsonLocalStorageObj)
         {
-            string returned = JsonLocalStorageObj;
-            //deserialize here
-            //Show show = JsonConvert.DeserializeObject<Show>(returned);
-            int returned_id = JsonConvert.DeserializeObject<int>(returned);
-            return Content("To wrocilo do controllera z local storage: " + returned_id);
+            ReturnedReservation returned_reservation = JsonConvert.DeserializeObject<ReturnedReservation>(JsonLocalStorageObj);
+            repo.addReservation(returned_reservation.Returned_schedule_id, returned_reservation.Returned_user_email);
+            return Content("Succes");
         }
 
 

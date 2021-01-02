@@ -56,10 +56,23 @@ namespace CCS.DataRepository
             }
             return shows;
         }
-        public  void updateReservedSpots(int schedule_id, int new_reserved_spots)
+        public void updateReservedSpots(int schedule_id, int new_reserved_spots)
         {
             Schedule schedule = db.Schedule.Where(p => p.schedule_id == schedule_id).First();
             schedule.reserved_spots = new_reserved_spots;
+            db.SubmitChanges();
+        }
+        public string getUserIdByEmail(string user_email)
+        {
+            AspNetUsers user = db.AspNetUsers.Where(p => p.Email == user_email).First();
+            return user.Id;
+        }
+        public void addReservation(int schedule_id, string user_email)
+        {
+            Reservations reservation = new Reservations();
+            reservation.schedule_id = schedule_id;
+            reservation.Id = getUserIdByEmail(user_email);
+            db.Reservations.InsertOnSubmit(reservation);
             db.SubmitChanges();
         }
     }

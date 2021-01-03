@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Services;
+using Microsoft.AspNet.Identity;
 
 namespace CCS.Controllers
 {
@@ -15,6 +16,8 @@ namespace CCS.Controllers
         private Repository repo = new Repository();
         public ActionResult Index()
         {
+            string user_id = User.Identity.GetUserId();
+            ViewBag.user_id = user_id;
             List<Show> shows = repo.getShows();
             var homeViewModel = new HomeViewModel(shows);
             return View(homeViewModel);
@@ -31,14 +34,14 @@ namespace CCS.Controllers
         {
             return View();
         }
-        [HttpPost]
+
+     /*   [HttpPost]
         [WebMethod]
         public ActionResult TicketsResult(string JsonLocalStorageObj)
         {
             ReturnedTickets returned_tickets = JsonConvert.DeserializeObject<ReturnedTickets>(JsonLocalStorageObj);
-            repo.updateReservedSpots(returned_tickets.Returned_schedule_id, returned_tickets.Returned_reserved_spots);
             return Content("Success");
-        }
+        }*/
 
         public ActionResult Seats()
         {
@@ -47,6 +50,8 @@ namespace CCS.Controllers
         }
         public ActionResult Reservation()
         {
+            string user_id = User.Identity.GetUserId();
+            ViewBag.user_id = repo.getEmailByUserId(user_id);
             return View();
         }
 
@@ -55,7 +60,8 @@ namespace CCS.Controllers
         public ActionResult ReservationResult(string JsonLocalStorageObj)
         {
             ReturnedReservation returned_reservation = JsonConvert.DeserializeObject<ReturnedReservation>(JsonLocalStorageObj);
-            repo.addReservation(returned_reservation.Returned_schedule_id, returned_reservation.Returned_user_email);
+            repo.updateReservedSpots(returned_reservation.Returned_schedule_id, returned_reservation.Returned_reserved_spots);
+            repo.addReservation(returned_reservation.Returned_schedule_id, User.Identity.GetUserId());
             return Content("Succes");
         }
 

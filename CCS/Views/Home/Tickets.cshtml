@@ -46,7 +46,7 @@
                     } else {
                         show.Reserved_spots += tickets_amount;
                         // wysylanie danych do kontrolera
-                        var id = show.Schedule_id;
+                       @* var id = show.Schedule_id;
                         var spots = show.Reserved_spots;
                         var JsonLocalStorageObj = JSON.stringify({
                             Returned_schedule_id: id,
@@ -56,7 +56,7 @@
                             url: "/Home/TicketsResult",
                             type: "POST",
                             data: { JsonLocalStorageObj: JsonLocalStorageObj }
-                        });
+                        });*@
                         window.location.href = '@Url.Action("Reservation", "Home")';
                     }
                 }

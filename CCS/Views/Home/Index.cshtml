@@ -8,6 +8,16 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
+        function on_create() {
+            console.log("Creating");
+            if (!User.Identity.IsAuthenticated) {
+                console.log("Disabled");
+               @* document.getElementById("reserve_btn").disabled = true;*@
+            } else {
+                console.log("Not Disabled");
+               @* document.getElementById("reserve_btn").disabled = false;*@
+            }
+        }
         function openDay(evt, dayOfWeek) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
@@ -73,7 +83,8 @@
         }
     </style>
 </head>
-<body>
+<body >
+   
     <div class="text-center">
         <h1 class="display-4">Movies List</h1>
     </div>
@@ -93,20 +104,26 @@
             {
                 if (show.Movie_date == 1)
                 {
-                    <li class="list-group-item">
-                        <img class="float-left" src="~/Content/photos/inception.jpg" style="height: 100px;" />
-                        <p>
-                            <h2>&emsp; @show.Title</h2>
-                            <a>Screening hour: @show.Movie_hour</a><br />
-                            <a>Genre: @show.Genre</a><br />
-                            <a>@show.Description</a><br />
-                        </p>
-                        <div class="float-right">
-                            <input type="button" value="Watch Trailer" class="btn-outline-dark"
-                                   onclick="on_click('@show.Trailer')" />
-                        </div><br />
-                        <input type="button" value="Reserve tickets" class="btn-outline-dark"
-                               onclick="on_chosen_movie({
+            <li class="list-group-item">
+                <img class="float-left" src="~/Content/photos/inception.jpg" style="height: 100px;" />
+                <p>
+                    <h2>&emsp; @show.Title</h2>
+                    <a>Screening hour: @show.Movie_hour</a><br />
+                    <a>Genre: @show.Genre</a><br />
+                    <a>@show.Description</a><br />
+                </p>
+                <div class="float-right">
+                    <input type="button" value="Watch Trailer" class="btn-outline-dark"
+                           onclick="on_click('@show.Trailer')" />
+                </div><br />
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <b>You must be logged in to reserve tickets.</b>
+                }
+                else
+                {
+                    <input type="button" value="Reserve tickets" id="reserve_btn" class="btn-outline-dark"
+                           onclick="on_chosen_movie({
                            Schedule_id: @show.Schedule_id,
                            Movie_date: @show.Movie_date,
                            Movie_hour: '@show.Movie_hour',
@@ -115,7 +132,9 @@
                            Reserved_spots: @show.Reserved_spots,
                            Title: '@show.Title',
                            Price_per_spot: @show.Price_per_spot})" />
-                    </li>
+                }
+
+            </li>
                 }
             }
         </ul>

@@ -62,16 +62,16 @@ namespace CCS.DataRepository
             schedule.reserved_spots = new_reserved_spots;
             db.SubmitChanges();
         }
-        public string getUserIdByEmail(string user_email)
+        public string getEmailByUserId(string user_id)
         {
-            AspNetUsers user = db.AspNetUsers.Where(p => p.Email == user_email).First();
-            return user.Id;
+            AspNetUsers user = db.AspNetUsers.Where(p => p.Id == user_id).First();
+            return user.Email;
         }
-        public void addReservation(int schedule_id, string user_email)
+        public void addReservation(int schedule_id, string user_id)
         {
             Reservations reservation = new Reservations();
             reservation.schedule_id = schedule_id;
-            reservation.Id = getUserIdByEmail(user_email);
+            reservation.Id = user_id;
             db.Reservations.InsertOnSubmit(reservation);
             db.SubmitChanges();
         }

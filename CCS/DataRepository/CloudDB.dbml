@@ -46,6 +46,7 @@
       <Column Name="price_per_spot" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="description" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
       <Column Name="duration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="poster" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Association Name="Movies_Schedule" Member="Schedule" ThisKey="movie_id" OtherKey="movie_id" Type="Schedule" />
       <Association Name="Genre_Movies" Member="Genre" ThisKey="genre_id" OtherKey="genre_id" Type="Genre" IsForeignKey="true" />
     </Type>

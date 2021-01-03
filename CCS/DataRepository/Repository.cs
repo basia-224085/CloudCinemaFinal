@@ -38,7 +38,8 @@ namespace CCS.DataRepository
                            m.title,
                            m.trailer,
                            m.price_per_spot,
-                           m.description
+                           m.description,
+                           m.poster
                        };
             foreach (var item in data)
             {
@@ -52,7 +53,8 @@ namespace CCS.DataRepository
                            item.title,
                            item.trailer,
                            item.price_per_spot,
-                           item.description));
+                           item.description,
+                           item.poster));
             }
             return shows;
         }

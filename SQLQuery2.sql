@@ -1,5 +1,4 @@
-﻿select distinct movie_id from Schedule
-where movie_date = 1
-
-insert into Schedule(movie_date, showtime_id, movie_id, seat_id)
-values(1, 1, 12, null);
+﻿select * from AspNetUsers
+update Movies
+set trailer = 'https://www.youtube.com/embed/8hP9D6kZseM'
+where movie_id = 18;

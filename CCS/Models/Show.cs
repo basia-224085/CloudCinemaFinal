@@ -3,7 +3,7 @@ namespace CCS.Models
 {
     public class Show
     {
-        public Show(int schedule_id, int movie_date, string movie_hour, string parking_zone, int capacity, int reserved_spots, string genre, string title, string trailer, decimal price_per_spot, string description)
+        public Show(int schedule_id, int movie_date, string movie_hour, string parking_zone, int capacity, int reserved_spots, string genre, string title, string trailer, decimal price_per_spot, string description, string poster)
         {
             Schedule_id = schedule_id;
             Movie_date = movie_date;
@@ -16,12 +16,8 @@ namespace CCS.Models
             Trailer = trailer;
             Price_per_spot = price_per_spot;
             Description = description;
+            Poster = poster; 
         }
-        public Show()
-        {
-
-        }
-
         public int Schedule_id { get; set; }
         public int Movie_date { get; set; }
         public string Movie_hour { get; set; }
@@ -33,6 +29,6 @@ namespace CCS.Models
         public string Trailer { get; set; }
         public decimal Price_per_spot { get; set; }
         public string Description { get; set; }
-
+        public string Poster { get; set; }
     }
 }

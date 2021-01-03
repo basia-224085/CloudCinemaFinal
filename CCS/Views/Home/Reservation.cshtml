@@ -78,8 +78,6 @@
     </script>
 </head>
 <body onload="on_create()">
-    @using (Html.BeginForm())
-    {
         <div class="text-center">
             <h1 class="display-4">
                 Your reservation
@@ -98,15 +96,9 @@
             User e-mail:  <b id="email">@ViewBag.user_id</b><br />
         </p>
         <br />
-
-        <input type="text" name="returned" />
-
-        <input type="submit" value="Submit reservation" />
-
         <div class="float-right">
             <input type="button" value="Submit reservation" class="btn-dark" style="font-size:large; background-size:contain"
                    onclick="submit_reservation()" />
         </div>
-    }
 </body>
 </html>

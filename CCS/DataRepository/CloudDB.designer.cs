@@ -881,6 +881,8 @@ namespace CCS.DataRepository
 		
 		private int _duration;
 		
+		private string _poster;
+		
 		private EntitySet<Schedule> _Schedule;
 		
 		private EntityRef<Genre> _Genre;
@@ -903,6 +905,8 @@ namespace CCS.DataRepository
     partial void OndescriptionChanged();
     partial void OndurationChanging(int value);
     partial void OndurationChanged();
+    partial void OnposterChanging(string value);
+    partial void OnposterChanged();
     #endregion
 		
 		public Movies()
@@ -1052,6 +1056,26 @@ namespace CCS.DataRepository
 					this._duration = value;
 					this.SendPropertyChanged("duration");
 					this.OndurationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_poster", DbType="NVarChar(100)")]
+		public string poster
+		{
+			get
+			{
+				return this._poster;
+			}
+			set
+			{
+				if ((this._poster != value))
+				{
+					this.OnposterChanging(value);
+					this.SendPropertyChanging();
+					this._poster = value;
+					this.SendPropertyChanged("poster");
+					this.OnposterChanged();
 				}
 			}
 		}

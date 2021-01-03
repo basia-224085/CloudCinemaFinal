@@ -316,6 +316,7 @@
     <None Include="DataRepository\CloudDB.dbml.layout">
       <DependentUpon>CloudDB.dbml</DependentUpon>
     </None>
+    <None Include="Properties\PublishProfiles\CloudCinema - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

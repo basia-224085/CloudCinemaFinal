@@ -61,13 +61,13 @@
 
             const show = JSON.parse(localStorage.getItem("show"));
             var id = show.Schedule_id;
-            var user_email = "123@fer.pl"; // to nie wiem narazie skad wziac moze m.Email?
             var spots = show.Reserved_spots;
             var JsonLocalStorageObj = JSON.stringify({
                 Returned_schedule_id: id,
-                Returned_user_email: user_email,
                 Returned_reserved_spots: spots
             });
+
+
             $.ajax({
                 url: "/Home/ReservationResult",
                 type: "POST",

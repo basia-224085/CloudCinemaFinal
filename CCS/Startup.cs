@@ -1,5 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using System.Security.Claims;
+using System.Web.Helpers;
 
 [assembly: OwinStartupAttribute(typeof(CCS.Startup))]
 namespace CCS
@@ -9,6 +11,7 @@ namespace CCS
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
         }
     }
 }

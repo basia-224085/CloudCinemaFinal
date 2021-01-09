@@ -77,5 +77,13 @@ namespace CCS.Controllers
 
             return View();
         }
+
+        public ActionResult ReservationRecords()
+        {
+            string user_id = User.Identity.GetUserId();
+            List<ReservationRecord> records = repo.getReservations(user_id);
+            MyReservationsViewModel reservationsViewModel = new MyReservationsViewModel(records);
+            return View(reservationsViewModel);
+        }
     }
 }

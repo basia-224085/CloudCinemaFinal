@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "ReservationRecords";
+}
+@model CCS.ViewModels.MyReservationsViewModel
+<h2>Your reservations: </h2>
+
+<html>
+<head>
+
+</head>
+<body>
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <b>You must be logged in to view your reservations.</b>
+    }
+    else
+    {
+        <ul class="list-group">
+            @foreach (var record in Model.ReservationRecords)
+            {
+                    <li class="list-group-item">
+                        <div>
+                            <h2>Reservation number: @record.Reservation_id</h2>
+                            <p>Movie title: @record.Title</p>
+                            @if (record.Movie_date == 1)
+                            { <p>Movie date: Monday</p>}
+                            @if (record.Movie_date == 2)
+                            { <p>Movie date: Tuesday</p>}
+                            @if (record.Movie_date == 3)
+                            {<p>Movie date: Wednesday</p>}
+                            @if (record.Movie_date == 4)
+                            {<p>Movie date: Thursday</p>}
+                            @if (record.Movie_date == 5)
+                            {<p>Movie date: Friday</p>}
+                            @if (record.Movie_date == 6)
+                            {<p>Movie date: Saturday</p>}
+                            @if (record.Movie_date == 7)
+                            {<p>Movie date: Sunday</p>}
+                            <p>Movie hour: @record.Movie_hour</p>
+                            <p>Parking zone: @record.Parking_zone</p>
+                        </div>
+                    </li>
+            }
+        </ul>
+    }
+</body>
+</html>
+

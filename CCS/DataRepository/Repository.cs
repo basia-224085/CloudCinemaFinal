@@ -77,5 +77,36 @@ namespace CCS.DataRepository
             db.Reservations.InsertOnSubmit(reservation);
             db.SubmitChanges();
         }
+
+        public List<ReservationRecord> getReservations(string user_id)
+        {
+            List<ReservationRecord> reservations = new List<ReservationRecord>();
+            var data = from r in db.Reservations
+                       where r.Id == user_id
+                       from s in db.Schedule
+                       where r.schedule_id == s.schedule_id
+                       from m in db.Movies
+                       where s.movie_id == m.movie_id
+                       select new
+                       {
+                           r.reservation_id,
+                           r.Id,
+                           s.movie_date,
+                           s.movie_hour,
+                           s.parking_zone,
+                           m.title
+                       };
+            foreach (var item in data)
+            {
+                reservations.Add(new ReservationRecord(
+                            item.reservation_id,
+                            item.Id,
+                            item.movie_date,
+                            item.movie_hour,
+                            item.parking_zone,
+                            item.title));
+            }
+            return reservations;
+        }
     }
 }

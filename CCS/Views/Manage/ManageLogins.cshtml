@@ -1,7 +1,7 @@
 ﻿@model CCS.Models.ManageLoginsViewModel
 @using Microsoft.Owin.Security
 @{
-    ViewBag.Title = "Zarządzaj logowaniami zewnętrznymi";
+    ViewBag.Title = "Manage logins";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -11,17 +11,14 @@
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
     if (loginProviders.Count() == 0) {
         <div>
-            <p>
-                Nie skonfigurowano żadnych zewnętrznych usług uwierzytelniania. Zapoznaj się z <a href="https://go.microsoft.com/fwlink/?LinkId=313242">tym artykułem</a>,
-                aby uzyskać szczegółowe informacje dotyczące konfigurowania tej aplikacji platformy ASP.NET pod kątem obsługi logowania za pośrednictwem usług zewnętrznych.
-            </p>
+          
         </div>
     }
     else
     {
         if (Model.CurrentLogins.Count > 0)
         {
-            <h4>Zarejestrowane nazwy logowania</h4>
+       
             <table class="table">
                 <tbody>
                     @foreach (var account in Model.CurrentLogins)

@@ -3,30 +3,39 @@
     ViewBag.Title = "ReservationRecords";
 }
 @model CCS.ViewModels.MyReservationsViewModel
-<h2>Your reservations: </h2>
+
 
 <html>
 <head>
-
+    <br>
+    <br>
+    <div class="col-md">
+        <img src="~/Content/photos/clouds.png" style="height: 50px;" />
+        <b style="font-size: 35px;">Your reservations</b>
+    </div>
+    <br>
 </head>
 <body>
     @if (!User.Identity.IsAuthenticated)
     {
         <b>You must be logged in to view your reservations.</b>
-    }
-    else
-    {
-        <ul class="list-group">
-            @foreach (var record in Model.ReservationRecords)
+        <div class="text-center">
+            <img src="~/Content/photos/clouds.png" style="height: 250px;" />
+            </div>
+            }
+            else
             {
+            <ul class="list-group">
+                @foreach (var record in Model.ReservationRecords)
+                {
                     <li class="list-group-item">
                         <div>
                             <h2>Reservation number: @record.Reservation_id</h2>
                             <p>Movie title: @record.Title</p>
                             @if (record.Movie_date == 1)
-                            { <p>Movie date: Monday</p>}
+                            {<p>Movie date: Monday</p>}
                             @if (record.Movie_date == 2)
-                            { <p>Movie date: Tuesday</p>}
+                            {<p>Movie date: Tuesday</p>}
                             @if (record.Movie_date == 3)
                             {<p>Movie date: Wednesday</p>}
                             @if (record.Movie_date == 4)
@@ -41,9 +50,9 @@
                             <p>Parking zone: @record.Parking_zone</p>
                         </div>
                     </li>
+                }
+            </ul>
             }
-        </ul>
-    }
 </body>
 </html>
 
